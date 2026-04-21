@@ -1,1986 +1,1219 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>LEVELUP — James McCahill</title>
-    <link rel="apple-touch-icon" href="icon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <meta name="theme-color" content="#000000">
-    ...
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Arial Black' font-size='56' fill='%23C9A84C' text-anchor='middle' font-weight='900'%3EL%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f0f0f">
+<title>LEVELUP — James McCahill</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-  html,body,#root{height:100%;background:#0a0a0a;color:#fff;font-family:'Barlow',sans-serif;overflow:hidden;overscroll-behavior:none}
-  ::-webkit-scrollbar{width:0;height:0}
-  input,textarea,select{outline:none;border:none;background:none;color:#fff;font-family:'Barlow',sans-serif}
-  button{cursor:pointer;border:none;background:none;font-family:'Barlow',sans-serif;color:#fff}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 8px rgba(201,168,76,0)}}
-  @keyframes greenPulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0)}}
-  .fu{animation:fadeUp .4s cubic-bezier(.16,1,.3,1) both}
-  .fi{animation:fadeIn .3s ease both}
-  .d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.18s}.d4{animation-delay:.24s}
-  .spinner{width:36px;height:36px;border:3px solid rgba(201,168,76,.2);border-top-color:#C9A84C;border-radius:50%;animation:spin .8s linear infinite}
-  .loader{position:fixed;inset:0;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-  .loader-text{color:#C9A84C;font-family:'Bebas Neue',sans-serif;letter-spacing:6px;font-size:24px}
-  .setup-notice{position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
-  .setup-box{max-width:500px;background:#111;border:1px solid rgba(201,168,76,.3);border-radius:18px;padding:32px;color:#fff}
-  .setup-box h1{font-family:'Bebas Neue',sans-serif;letter-spacing:4px;color:#C9A84C;font-size:28px;margin-bottom:14px}
-  .setup-box p{margin-bottom:14px;line-height:1.6;color:rgba(255,255,255,.75);font-size:14px}
-  .setup-box a{color:#C9A84C;text-decoration:none;font-weight:700}
-  .setup-box code{background:#222;padding:2px 8px;border-radius:4px;font-size:12px;color:#E8C97A}
-  .setup-box ol{padding-left:20px;margin-bottom:14px}
-  .setup-box ol li{margin-bottom:8px;color:rgba(255,255,255,.8);font-size:14px}
+:root{--gold:#C9A84C;--goldL:#E8C97A;--goldD:#8B6914;--goldDim:rgba(201,168,76,.12);--goldBorder:rgba(201,168,76,.2);--bg:#0f0f0f;--s1:#161616;--s2:#1e1e1e;--s3:#272727;--s4:#303030;--white:#fff;--w70:rgba(255,255,255,.7);--w40:rgba(255,255,255,.4);--green:#22c55e;--red:#ef4444;--font:'DM Sans',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body,#root{height:100%;background:var(--bg);color:var(--white);font-family:var(--font);overflow:hidden}
+input,textarea{outline:none;border:none;background:none;color:var(--white);font-family:var(--font)}
+button{cursor:pointer;border:none;background:none;font-family:var(--font);color:var(--white)}
+::-webkit-scrollbar{width:0;height:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes checkBounce{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.fu{animation:fadeUp .35s cubic-bezier(.16,1,.3,1) both}
+.d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.18s}.d4{animation-delay:.24s}
+.spin{width:30px;height:30px;border:2.5px solid rgba(201,168,76,.15);border-top-color:#C9A84C;border-radius:50%;animation:spin .7s linear infinite}
 </style>
-
-<!-- React 18 -->
-
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-<!-- Firebase v10 (compat mode for inline scripts) -->
-
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-
 </head>
 <body>
-<div id="root"><div class="loader"><div class="spinner"></div><div class="loader-text">LEVELUP</div></div></div>
-
-<!-- ═══════════════════════════════════════════════════════════════════════
-     FIREBASE CONFIGURATION
-     Paste your Firebase config object below. Instructions in SETUP.md.
-     Until you do this, the app will show a setup guide.
-═══════════════════════════════════════════════════════════════════════ -->
-
+<div id="root"><div style="position:fixed;inset:0;background:#0f0f0f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px"><div class="spin"></div><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:6px;background:linear-gradient(135deg,#8B6914,#E8C97A);-webkit-background-clip:text;-webkit-text-fill-color:transparent">LEVELUP</div></div></div>
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBcmsf1iv5E0c5Lt7_LUKoNTCka6nHDvlg",
-  authDomain: "level-up-5c52b.firebaseapp.com",
-  projectId: "level-up-5c52b",
-  storageBucket: "level-up-5c52b.firebasestorage.app",
-  messagingSenderId: "518843280515",
-  appId: "1:518843280515:web:b3480df47c3ff4e86d7fb6"
-};
+const firebaseConfig={apiKey:"AIzaSyBcmsf1iv5E0c5Lt7_LUKoNTCka6nHDvlg",authDomain:"level-up-5c52b.firebaseapp.com",projectId:"level-up-5c52b",storageBucket:"level-up-5c52b.firebasestorage.app",messagingSenderId:"518843280515",appId:"1:518843280515:web:b3480df47c3ff4e86d7fb6"};
 
-// Check if Firebase is configured
-window.__FIREBASE_READY__ = firebaseConfig.apiKey !== "PASTE_YOUR_API_KEY_HERE";
-
-if (window.__FIREBASE_READY__) {
-  firebase.initializeApp(firebaseConfig);
-  window.__fb = {
-    auth: firebase.auth(),
-    db: firebase.firestore(),
-    FieldValue: firebase.firestore.FieldValue,
-    Timestamp: firebase.firestore.Timestamp,
-  };
-}
+window.__FB__=firebaseConfig.apiKey!=="PASTE_YOUR_API_KEY_HERE";
+if(window.__FB__){firebase.initializeApp(firebaseConfig);window.__fb={auth:firebase.auth(),db:firebase.firestore(),FV:firebase.firestore.FieldValue};}
 </script>
-
 <script type="text/babel">
-const { useState, useEffect, useRef } = React;
+const{useState,useEffect,useRef}=React;
 
-if (!window.__FIREBASE_READY__) {
-  const SetupNotice = () => (
-    <div className="setup-notice">
-      <div className="setup-box">
-        <h1>LEVELUP — SETUP REQUIRED</h1>
-        <p>To finish setting up your app, you need to connect it to Firebase (free cloud database).</p>
-        <p><strong style={{color:'#C9A84C'}}>Quick steps:</strong></p>
-        <ol>
-          <li>Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> and sign in with Google</li>
-          <li>Click <strong>Add project</strong> → name it "levelup" → continue → disable Google Analytics → create</li>
-          <li>In the project, click <strong>Build → Authentication → Get started → Email/Password → Enable → Save</strong></li>
-          <li>Click <strong>Build → Firestore Database → Create database → Start in test mode → Next → Done</strong></li>
-          <li>Click the <strong>⚙️ gear → Project settings → Your apps → Web ({"</>"})</strong> → name it "levelup" → Register</li>
-          <li>Copy the <code>firebaseConfig</code> object it shows you</li>
-          <li>Paste it into <code>index.html</code> replacing the PASTE_YOUR_... placeholders at line 47</li>
-          <li>Save, commit to GitHub, refresh your page</li>
-        </ol>
-        <p style={{marginTop:18, fontSize:13}}>Full guide with screenshots: see <code>SETUP.md</code> in your project files.</p>
-      </div>
-    </div>
-  );
-  ReactDOM.createRoot(document.getElementById("root")).render(<SetupNotice />);
-} else {
+/* ── EXERCISE LIBRARY ─────────────────────────────────────── */
+const EX=[
+{id:‘e1’,name:‘Back Squat’,primary:‘Quadriceps’,secondary:‘Glutes · Hamstrings’,equipment:‘Barbell’,cat:‘Legs’,muscles:[‘quads’],emoji:‘🏋️’,desc:‘Bar on upper traps, feet shoulder-width. Squat to parallel keeping chest tall, knees tracking toes. Drive through heels to stand.’},
+{id:‘e2’,name:‘Bench Press’,primary:‘Chest’,secondary:‘Triceps · Shoulders’,equipment:‘Barbell’,cat:‘Chest’,muscles:[‘chest’],emoji:‘💪’,desc:‘Retract shoulder blades, slight arch, lower bar to chest with control. Drive up explosively. Feet flat on floor.’},
+{id:‘e3’,name:‘Deadlift’,primary:‘Hamstrings’,secondary:‘Glutes · Lower Back’,equipment:‘Barbell’,cat:‘Back’,muscles:[‘hamstrings’,‘back’],emoji:‘🏋️’,desc:‘Bar over mid-foot, flat back. Drive through the floor — hips and shoulders rise simultaneously. Full lockout at top.’},
+{id:‘e4’,name:‘Pull Up’,primary:‘Lats’,secondary:‘Biceps · Rear Delts’,equipment:‘Bodyweight’,cat:‘Back’,muscles:[‘back’,‘biceps’],emoji:‘🔝’,desc:‘Dead hang to start. Pull elbows down and back until chin clears bar. Full dead hang between reps.’},
+{id:‘e5’,name:‘Overhead Press’,primary:‘Shoulders’,secondary:‘Triceps · Upper Chest’,equipment:‘Barbell’,cat:‘Shoulders’,muscles:[‘shoulders’],emoji:‘⬆️’,desc:‘Bar at collarbone, core tight. Press overhead while moving head back slightly. Full lockout at top.’},
+{id:‘e6’,name:‘Romanian Deadlift’,primary:‘Hamstrings’,secondary:‘Glutes · Lower Back’,equipment:‘Barbell’,cat:‘Legs’,muscles:[‘hamstrings’],emoji:‘🦵’,desc:‘Hinge at hips with soft knees, bar stays close to legs. Feel hamstring stretch, then drive hips forward to stand.’},
+{id:‘e7’,name:‘Barbell Row’,primary:‘Lats’,secondary:‘Biceps · Rear Delts’,equipment:‘Barbell’,cat:‘Back’,muscles:[‘back’,‘biceps’],emoji:‘↩️’,desc:‘Hinge to ~45°, retract scapula, pull bar to lower chest. Lead with elbows, control the descent.’},
+{id:‘e8’,name:‘Incline Bench Press’,primary:‘Upper Chest’,secondary:‘Shoulders · Triceps’,equipment:‘Barbell’,cat:‘Chest’,muscles:[‘chest’,‘shoulders’],emoji:‘📐’,desc:‘30-45° incline. Same technique as flat bench but emphasises the clavicular head of pecs.’},
+{id:‘e9’,name:‘Dumbbell Curl’,primary:‘Biceps’,secondary:‘Forearms’,equipment:‘Dumbbell’,cat:‘Arms’,muscles:[‘biceps’],emoji:‘💪’,desc:‘Supinate at top, control the eccentric. Keep upper arm stationary — no swinging.’},
+{id:‘e10’,name:‘Tricep Pushdown’,primary:‘Triceps’,secondary:‘Forearms’,equipment:‘Cable’,cat:‘Arms’,muscles:[‘triceps’],emoji:‘⬇️’,desc:‘Elbows tucked at sides. Push to full extension, hold the squeeze, control the return.’},
+{id:‘e11’,name:‘Bulgarian Split Squat’,primary:‘Quadriceps’,secondary:‘Glutes · Hamstrings’,equipment:‘Dumbbell’,cat:‘Legs’,muscles:[‘quads’,‘glutes’],emoji:‘🦵’,desc:‘Rear foot elevated, front foot forward. Vertical shin, upright torso, full depth range of motion.’},
+{id:‘e12’,name:‘Lat Pulldown’,primary:‘Lats’,secondary:‘Biceps · Teres Major’,equipment:‘Cable’,cat:‘Back’,muscles:[‘back’,‘biceps’],emoji:‘↙️’,desc:‘Slight lean back, pull bar to upper chest. Think pulling elbows into your back pockets.’},
+{id:‘e13’,name:‘Dumbbell Shoulder Press’,primary:‘Shoulders’,secondary:‘Triceps’,equipment:‘Dumbbell’,cat:‘Shoulders’,muscles:[‘shoulders’],emoji:‘⬆️’,desc:‘Lower to ear height, full ROM. Slight forward lean at top. Core braced throughout.’},
+{id:‘e14’,name:‘Hip Thrust’,primary:‘Glutes’,secondary:‘Hamstrings’,equipment:‘Barbell’,cat:‘Legs’,muscles:[‘glutes’,‘hamstrings’],emoji:‘🍑’,desc:‘Shoulder blades on bench, bar across hips. Drive to full hip extension with a hard glute squeeze at top.’},
+{id:‘e15’,name:‘Cable Row’,primary:‘Lats’,secondary:‘Biceps · Rear Delts’,equipment:‘Cable’,cat:‘Back’,muscles:[‘back’,‘biceps’],emoji:‘↩️’,desc:‘Sit tall, pull handle to abdomen, retract scapula fully. Control the return.’},
+{id:‘e16’,name:‘Dips’,primary:‘Triceps’,secondary:‘Chest · Shoulders’,equipment:‘Bodyweight’,cat:‘Arms’,muscles:[‘triceps’,‘chest’],emoji:‘⬇️’,desc:‘Lean forward for chest emphasis, stay upright for tricep focus. Full ROM, control descent.’},
+{id:‘e17’,name:‘Face Pull’,primary:‘Rear Delts’,secondary:‘External Rotators’,equipment:‘Cable’,cat:‘Shoulders’,muscles:[‘shoulders’],emoji:‘😬’,desc:‘High pulley, elbows high and wide. Pull to face and externally rotate at end of movement.’},
+{id:‘e18’,name:‘Plank’,primary:‘Core’,secondary:‘Shoulders · Glutes’,equipment:‘Bodyweight’,cat:‘Core’,muscles:[‘core’],emoji:‘🧘’,desc:‘Straight line head to heels. Squeeze glutes and core. Breathe normally throughout the hold.’},
+{id:‘e19’,name:‘Leg Curl’,primary:‘Hamstrings’,secondary:‘Calves’,equipment:‘Machine’,cat:‘Legs’,muscles:[‘hamstrings’],emoji:‘🦵’,desc:‘Full ROM, squeeze at top, slow eccentric. Hips stay on pad throughout.’},
+{id:‘e20’,name:‘Chest Fly’,primary:‘Chest’,secondary:‘Shoulders’,equipment:‘Dumbbell’,cat:‘Chest’,muscles:[‘chest’],emoji:‘🦅’,desc:‘Slight elbow bend maintained. Wide arc, deep stretch at bottom, squeeze at top.’},
+{id:‘e21’,name:‘Arnold Press’,primary:‘Shoulders’,secondary:‘Triceps · Chest’,equipment:‘Dumbbell’,cat:‘Shoulders’,muscles:[‘shoulders’],emoji:‘💪’,desc:‘Start palms facing you, rotate to palms forward as you press. Full ROM throughout.’},
+{id:‘e22’,name:‘Hammer Curl’,primary:‘Brachialis’,secondary:‘Biceps · Forearms’,equipment:‘Dumbbell’,cat:‘Arms’,muscles:[‘biceps’],emoji:‘🔨’,desc:‘Neutral grip throughout. Full extension at bottom, contract at top. No swinging.’},
+{id:‘e23’,name:‘Leg Press’,primary:‘Quadriceps’,secondary:‘Glutes · Hamstrings’,equipment:‘Machine’,cat:‘Legs’,muscles:[‘quads’,‘glutes’],emoji:‘🦿’,desc:‘Feet shoulder-width, push through heels. Never fully lock knees at the top.’},
+{id:‘e24’,name:‘Ab Crunch’,primary:‘Core’,secondary:‘Hip Flexors’,equipment:‘Bodyweight’,cat:‘Core’,muscles:[‘core’],emoji:‘🔲’,desc:‘Curl shoulders toward hips. Lower back stays on floor. Exhale on the way up.’},
+{id:‘e25’,name:‘Leg Extension’,primary:‘Quadriceps’,secondary:’’,equipment:‘Machine’,cat:‘Legs’,muscles:[‘quads’],emoji:‘🦵’,desc:‘Full extension, hold 1-2 seconds at top. Control the descent. Toes slightly turned out.’},
+];
 
-// ─── DESIGN TOKENS ────────────────────────────────────────────────────────
-const G = {
-  gold: "#C9A84C", goldL: "#E8C97A", goldD: "#8B6914",
-  black: "#0a0a0a", b2: "#111", b3: "#1a1a1a", b4: "#222", b5: "#2a2a2a",
-  white: "#fff", dim: "rgba(255,255,255,0.55)",
-  glow: "rgba(201,168,76,0.13)", border: "rgba(201,168,76,0.18)",
-  green: "#4ade80", red: "#ef4444",
+/* ── DESIGN TOKENS ────────────────────────────────────────── */
+const G={gold:’#C9A84C’,goldL:’#E8C97A’,goldD:’#8B6914’,bg:’#0f0f0f’,s1:’#161616’,s2:’#1e1e1e’,s3:’#272727’,s4:’#303030’,white:’#fff’,w70:‘rgba(255,255,255,.7)’,w40:‘rgba(255,255,255,.4)’,w12:‘rgba(255,255,255,.07)’,goldDim:‘rgba(201,168,76,.12)’,goldBorder:‘rgba(201,168,76,.2)’,green:’#22c55e’,red:’#ef4444’};
+
+/* ── MUSCLE DIAGRAM ───────────────────────────────────────── */
+const MuscleMap=({muscles=[],size=120})=>{
+const a=new Set(muscles),s=id=>a.has(id)?G.gold:’#252525’,o=’#3a3a3a’;
+const Front=()=>(
+<svg viewBox="0 0 56 140" width={size/2-2} height={size}>
+<ellipse cx="28" cy="10" rx="9" ry="10" fill="#222" stroke={o} strokeWidth=".7"/>
+<rect x="23" y="20" width="10" height="8" rx="2" fill="#222" stroke={o} strokeWidth=".7"/>
+{/* shoulders */}
+<ellipse cx=“11” cy=“33” rx=“6” ry=“7” fill={s(‘shoulders’)} stroke={o} strokeWidth=”.7”/>
+<ellipse cx=“45” cy=“33” rx=“6” ry=“7” fill={s(‘shoulders’)} stroke={o} strokeWidth=”.7”/>
+{/* chest */}
+<path d=“M17,28 Q10,32 10,44 L18,44 Z” fill={s(‘chest’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M39,28 Q46,32 46,44 L38,44 Z” fill={s(‘chest’)} stroke={o} strokeWidth=”.7”/>
+{/* core */}
+<path d=“M18,28 L14,76 L18,78 L18,110 L22,112 L22,128 L28,130 L28,112 L34,110 L34,78 L38,76 L38,28 Z” fill={s(‘core’)} stroke={o} strokeWidth=”.7”/>
+<line x1="28" y1="44" x2="28" y2="76" stroke={o} strokeWidth=".5"/>
+<line x1="18" y1="52" x2="38" y2="52" stroke={o} strokeWidth=".4"/>
+<line x1="18" y1="60" x2="38" y2="60" stroke={o} strokeWidth=".4"/>
+<line x1="18" y1="68" x2="38" y2="68" stroke={o} strokeWidth=".4"/>
+{/* biceps */}
+<path d=“M7,40 Q3,48 4,56 L9,55 Q9,47 12,40Z” fill={s(‘biceps’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M49,40 Q53,48 52,56 L47,55 Q47,47 44,40Z” fill={s(‘biceps’)} stroke={o} strokeWidth=”.7”/>
+{/* quads */}
+<path d=“M18,78 L13,112 L22,112 L22,78Z” fill={s(‘quads’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M38,78 L43,112 L34,112 L34,78Z” fill={s(‘quads’)} stroke={o} strokeWidth=”.7”/>
+{/* calves */}
+<path d=“M13,112 L11,132 L21,132 L22,112Z” fill={s(‘calves’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M43,112 L45,132 L35,132 L34,112Z” fill={s(‘calves’)} stroke={o} strokeWidth=”.7”/>
+<text x="28" y="139" textAnchor="middle" fill={o} fontSize="5.5" fontFamily="sans-serif">FRONT</text>
+</svg>
+);
+const Back=()=>(
+<svg viewBox="0 0 56 140" width={size/2-2} height={size}>
+<ellipse cx="28" cy="10" rx="9" ry="10" fill="#222" stroke={o} strokeWidth=".7"/>
+<rect x="23" y="20" width="10" height="8" rx="2" fill="#222" stroke={o} strokeWidth=".7"/>
+<ellipse cx=“11” cy=“35” rx=“6” ry=“6” fill={s(‘shoulders’)} stroke={o} strokeWidth=”.7”/>
+<ellipse cx=“45” cy=“35” rx=“6” ry=“6” fill={s(‘shoulders’)} stroke={o} strokeWidth=”.7”/>
+{/* traps */}
+<path d=“M18,28 Q28,24 38,28 L36,38 L28,36 L20,38Z” fill={s(‘back’)} stroke={o} strokeWidth=”.7”/>
+{/* lats */}
+<path d=“M14,40 Q6,50 8,66 L18,62 L18,40Z” fill={s(‘back’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M42,40 Q50,50 48,66 L38,62 L38,40Z” fill={s(‘back’)} stroke={o} strokeWidth=”.7”/>
+{/* lower back */}
+<path d=“M18,66 L14,78 L38,78 L42,66 L28,64Z” fill={s(‘lowerback’)} stroke={o} strokeWidth=”.7”/>
+{/* triceps */}
+<path d=“M7,40 Q3,48 5,56 L10,55 Q10,47 12,40Z” fill={s(‘triceps’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M49,40 Q53,48 51,56 L46,55 Q46,47 44,40Z” fill={s(‘triceps’)} stroke={o} strokeWidth=”.7”/>
+{/* glutes */}
+<path d=“M14,78 L12,98 L22,100 L24,78Z” fill={s(‘glutes’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M42,78 L44,98 L34,100 L32,78Z” fill={s(‘glutes’)} stroke={o} strokeWidth=”.7”/>
+{/* hamstrings */}
+<path d=“M12,98 L10,112 L22,112 L22,100Z” fill={s(‘hamstrings’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M44,98 L46,112 L34,112 L34,100Z” fill={s(‘hamstrings’)} stroke={o} strokeWidth=”.7”/>
+{/* calves */}
+<path d=“M10,112 L8,132 L20,132 L22,112Z” fill={s(‘calves’)} stroke={o} strokeWidth=”.7”/>
+<path d=“M46,112 L48,132 L36,132 L34,112Z” fill={s(‘calves’)} stroke={o} strokeWidth=”.7”/>
+<text x="28" y="139" textAnchor="middle" fill={o} fontSize="5.5" fontFamily="sans-serif">BACK</text>
+</svg>
+);
+return <div style={{display:‘flex’,gap:8,justifyContent:‘center’}}><Front/><Back/></div>;
 };
 
-// ─── FIREBASE HELPERS ─────────────────────────────────────────────────────
-const { auth, db, FieldValue } = window.__fb;
-
-const api = {
-  // Auth
-  signUp: async (email, password, name, role) => {
-    const cred = await auth.createUserWithEmailAndPassword(email, password);
-    const avatar = name.split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2);
-    // Find the coach if this is a client
-    let coachId = null;
-    if (role === "client") {
-      const coaches = await db.collection("users").where("role", "==", "coach").limit(1).get();
-      if (!coaches.empty) coachId = coaches.docs[0].id;
-    }
-    await db.collection("users").doc(cred.user.uid).set({
-      email, name, role, avatar, coachId,
-      streak: 0, plan: role === "coach" ? "OWNER" : "STANDARD",
-      createdAt: FieldValue.serverTimestamp(),
-    });
-    // If client joining, set default nutrition targets
-    if (role === "client") {
-      await db.collection("nutritionTargets").doc(cred.user.uid).set({
-        calories: 2200, protein: 170, carbs: 250, fat: 70,
-      });
-    }
-    return cred.user.uid;
-  },
-  signIn: (email, password) => auth.signInWithEmailAndPassword(email, password),
-  signOut: () => auth.signOut(),
-  getUser: async (uid) => {
-    const doc = await db.collection("users").doc(uid).get();
-    return doc.exists ? { id: doc.id, ...doc.data() } : null;
-  },
-
-  // Clients
-  getClients: async (coachId) => {
-    const snap = await db.collection("users").where("coachId", "==", coachId).get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  },
-  watchClients: (coachId, cb) => {
-    return db.collection("users").where("coachId", "==", coachId)
-      .onSnapshot(snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-  },
-
-  // Programmes
-  getProgrammes: async (coachId) => {
-    const snap = await db.collection("programmes").where("coachId", "==", coachId).get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  },
-  watchProgrammes: (coachId, cb) => {
-    return db.collection("programmes").where("coachId", "==", coachId)
-      .onSnapshot(snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-  },
-  getClientProgrammes: async (clientId) => {
-    const snap = await db.collection("programmes")
-      .where("assignedTo", "array-contains", clientId).get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  },
-  createProgramme: async (data) => {
-    const ref = await db.collection("programmes").add({
-      ...data, assignedTo: [], createdAt: FieldValue.serverTimestamp(),
-    });
-    return ref.id;
-  },
-  updateProgramme: (progId, data) => db.collection("programmes").doc(progId).update(data),
-  assignProgramme: (progId, clientId) =>
-    db.collection("programmes").doc(progId).update({
-      assignedTo: FieldValue.arrayUnion(clientId),
-    }),
-  unassignProgramme: (progId, clientId) =>
-    db.collection("programmes").doc(progId).update({
-      assignedTo: FieldValue.arrayRemove(clientId),
-    }),
-
-  // Sessions
-  getSessions: async (clientId) => {
-    const snap = await db.collection("sessions").where("clientId", "==", clientId).get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  },
-  watchSessions: (clientId, cb) => {
-    return db.collection("sessions").where("clientId", "==", clientId)
-      .onSnapshot(snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-  },
-  logSession: (data) => db.collection("sessions").add({
-    ...data, completedAt: FieldValue.serverTimestamp(),
-  }),
-
-  // Messages
-  watchConversation: (userA, userB, cb) => {
-    return db.collection("messages")
-      .where("participants", "array-contains", userA)
-      .orderBy("createdAt", "asc")
-      .onSnapshot(snap => {
-        const msgs = snap.docs.map(d => ({ id: d.id, ...d.data() }))
-          .filter(m => m.participants.includes(userB));
-        cb(msgs);
-      });
-  },
-  sendMessage: (from, to, text) => db.collection("messages").add({
-    from, to, text, participants: [from, to].sort(),
-    createdAt: FieldValue.serverTimestamp(),
-  }),
-
-  // Nutrition
-  getNutritionTargets: async (clientId) => {
-    const doc = await db.collection("nutritionTargets").doc(clientId).get();
-    return doc.exists ? doc.data() : { calories: 2200, protein: 170, carbs: 250, fat: 70 };
-  },
-  setNutritionTargets: (clientId, targets) =>
-    db.collection("nutritionTargets").doc(clientId).set(targets),
-  getTodayMeals: async (clientId) => {
-    const today = new Date().toISOString().split("T")[0];
-    const snap = await db.collection("meals")
-      .where("clientId", "==", clientId).where("date", "==", today).get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  },
-  watchTodayMeals: (clientId, cb) => {
-    const today = new Date().toISOString().split("T")[0];
-    return db.collection("meals")
-      .where("clientId", "==", clientId).where("date", "==", today)
-      .onSnapshot(snap => cb(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-  },
-  addMeal: (data) => db.collection("meals").add({
-    ...data, createdAt: FieldValue.serverTimestamp(),
-  }),
-  deleteMeal: (mealId) => db.collection("meals").doc(mealId).delete(),
-
-  // Progress / measurements
-  getMeasurements: async (clientId) => {
-    const snap = await db.collection("measurements")
-      .where("clientId", "==", clientId).orderBy("date", "asc").get();
-    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-  },
-  addMeasurement: (data) => db.collection("measurements").add(data),
+/* ── UI COMPONENTS ────────────────────────────────────────── */
+const Logo=({n=24})=><span style={{fontFamily:”‘Bebas Neue’”,fontSize:n,letterSpacing:5,background:`linear-gradient(135deg,${G.goldD},${G.goldL})`,WebkitBackgroundClip:‘text’,WebkitTextFillColor:‘transparent’}}>LEVELUP</span>;
+const Pill=({c=G.gold,children,sx={}})=><span style={{padding:‘3px 9px’,borderRadius:20,fontSize:9,fontWeight:700,letterSpacing:1.2,textTransform:‘uppercase’,background:`${c}18`,border:`1px solid ${c}30`,color:c,…sx}}>{children}</span>;
+const Btn=({onClick,variant=‘gold’,sm,disabled,sx={},children})=>{
+const base={fontWeight:700,fontSize:sm?11:13,letterSpacing:1.2,borderRadius:10,textTransform:‘uppercase’,opacity:disabled?.4:1,cursor:disabled?‘not-allowed’:‘pointer’,transition:‘opacity .15s’,…sx};
+if(variant===‘gold’)return<button onClick={!disabled?onClick:null}style={{…base,background:`linear-gradient(135deg,${G.goldD},${G.gold})`,color:G.bg,padding:sm?‘10px 18px’:‘13px 26px’,boxShadow:`0 4px 18px rgba(201,168,76,.25)`}}>{children}</button>;
+if(variant===‘outline’)return<button onClick={!disabled?onClick:null}style={{…base,background:‘transparent’,border:`1.5px solid ${G.goldBorder}`,color:G.gold,padding:sm?‘9px 16px’:‘12px 24px’}}>{children}</button>;
+return<button onClick={!disabled?onClick:null}style={{…base,background:G.s3,color:G.w70,padding:sm?‘9px 16px’:‘12px 24px’}}>{children}</button>;
 };
+const Card=({children,sx={},onClick})=><div onClick={onClick}style={{background:G.s1,border:`1px solid ${G.s3}`,borderRadius:14,overflow:‘hidden’,cursor:onClick?‘pointer’:‘default’,…sx}}>{children}</div>;
+const Inp=({label,type=‘text’,value,onChange,placeholder,sx={}})=>(
 
-// ─── SHARED UI ────────────────────────────────────────────────────────────
-const Logo = ({ size = 32 }) => (
-  <span style={{ fontFamily: "'Bebas Neue'", fontSize: size, letterSpacing: 5,
-    background: `linear-gradient(135deg, ${G.goldD}, ${G.goldL}, ${G.gold})`,
-    WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>LEVELUP</span>
-);
-
-const GoldBtn = ({ children, onClick, style = {}, sm = false, disabled }) => (
-  <button onClick={onClick} disabled={disabled} style={{
-    background: disabled ? G.b4 : `linear-gradient(135deg, ${G.goldD}, ${G.gold})`,
-    color: disabled ? G.dim : G.black, fontWeight: 800, letterSpacing: 1.5,
-    fontSize: sm ? 11 : 13, padding: sm ? "10px 18px" : "14px 28px",
-    borderRadius: 10, textTransform: "uppercase",
-    boxShadow: disabled ? "none" : `0 4px 24px rgba(201,168,76,.3)`,
-    transition: "all .2s", opacity: disabled ? 0.5 : 1, ...style
-  }}>{children}</button>
-);
-
-const OutlineBtn = ({ children, onClick, style = {} }) => (
-  <button onClick={onClick} style={{
-    border: `1px solid ${G.border}`, color: G.gold,
-    fontWeight: 700, fontSize: 12, padding: "11px 20px",
-    borderRadius: 10, letterSpacing: 1, textTransform: "uppercase",
-    background: "transparent", ...style
-  }}>{children}</button>
-);
-
-const Card = ({ children, style = {}, onClick }) => (
-  <div onClick={onClick} style={{
-    background: G.b3, border: `1px solid ${G.b5}`, borderRadius: 14, padding: 16,
-    cursor: onClick ? "pointer" : "default", ...style
-  }}>{children}</div>
-);
-
-const Input = ({ label, type = "text", value, onChange, placeholder }) => (
-  <div style={{ marginBottom: 14 }}>
-    {label && <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: G.dim, marginBottom: 6, fontWeight: 700 }}>{label}</div>}
-    <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-      style={{ width: "100%", background: G.b4, border: `1px solid ${G.b5}`, borderRadius: 10,
-        padding: "13px 16px", fontSize: 14, color: G.white }} />
+  <div style={{marginBottom:12,...sx}}>
+    {label&&<div style={{fontSize:10,letterSpacing:1.5,textTransform:'uppercase',color:G.w40,marginBottom:5,fontWeight:600}}>{label}</div>}
+    <input type={type} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder}
+      style={{width:'100%',background:G.s2,border:`1.5px solid ${G.s4}`,borderRadius:10,padding:'11px 13px',fontSize:14,color:G.white}}/>
   </div>
 );
-
-const SectionTitle = ({ children, action, onAction }) => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between",
-    padding: "18px 20px 10px", fontFamily: "'Bebas Neue'", fontSize: 20, letterSpacing: 2 }}>
-    <span>{children}</span>
-    {action && <button onClick={onAction} style={{ fontFamily: "'Barlow'", fontSize: 11,
-      letterSpacing: 1, color: G.gold, textTransform: "uppercase", fontWeight: 700 }}>{action}</button>}
+const SH=({children,action,onAction})=>(
+  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'15px 20px 9px'}}>
+    <span style={{fontSize:11,letterSpacing:2,textTransform:'uppercase',color:G.w40,fontWeight:700}}>{children}</span>
+    {action&&<button onClick={onAction}style={{fontSize:11,color:G.gold,fontWeight:700}}>{action}</button>}
   </div>
 );
-
-const Badge = ({ children, color = G.gold }) => (
-  <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 800,
-    letterSpacing: 1.5, textTransform: "uppercase",
-    background: `${color}18`, border: `1px solid ${color}40`, color }}>{children}</span>
-);
-
-const Avatar = ({ initials, size = 38, gold = true }) => (
-  <div style={{ width: size, height: size, borderRadius: "50%", flexShrink: 0,
-    background: gold ? `linear-gradient(135deg, ${G.goldD}, ${G.gold})` : G.b4,
-    display: "flex", alignItems: "center", justifyContent: "center",
-    fontWeight: 800, fontSize: size * 0.36, color: gold ? G.black : G.white,
-    border: `2px solid ${gold ? G.gold : G.b5}` }}>{initials}</div>
-);
-
-const Loading = () => (
-  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 60 }}>
-    <div className="spinner" />
+const Av=({name='?',size=36,gold=true})=>{const i=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);return<div style={{width:size,height:size,borderRadius:'50%',flexShrink:0,background:gold?`linear-gradient(135deg,${G.goldD},${G.gold})`:G.s3,display:'flex',alignItems:'center',justifyContent:'center',fontWeight:700,fontSize:size*.36,color:gold?G.bg:G.white,border:`1.5px solid ${gold?G.gold:G.s4}`}}>{i}</div>;};
+const Empty=({icon,title,sub})=>(
+  <div style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',padding:'46px 24px',textAlign:'center',gap:10}}>
+    <div style={{fontSize:36,marginBottom:4}}>{icon}</div>
+    <div style={{fontWeight:700,fontSize:15}}>{title}</div>
+    {sub&&<div style={{fontSize:13,color:G.w40,lineHeight:1.5,maxWidth:240}}>{sub}</div>}
   </div>
 );
-
-const EmptyState = ({ icon, title, desc }) => (
-  <div style={{ padding: 40, textAlign: "center", color: G.dim }}>
-    <div style={{ fontSize: 40, marginBottom: 12 }}>{icon}</div>
-    <div style={{ fontWeight: 700, color: G.white }}>{title}</div>
-    <div style={{ fontSize: 12, marginTop: 6 }}>{desc}</div>
-  </div>
-);
-
-const MacroBar = ({ label, current, target, color }) => {
-  const pct = target ? Math.min(100, Math.round((current / target) * 100)) : 0;
-  return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, fontWeight: 700, marginBottom: 5 }}>
-        <span>{label}</span>
-        <span style={{ color: G.gold }}>{current}g / {target}g</span>
+const MBar=({label,current,target,color})=>{
+  const pct=target?Math.min(100,Math.round(current/target*100)):0;
+  return(
+    <div style={{marginBottom:10}}>
+      <div style={{display:'flex',justifyContent:'space-between',fontSize:12,fontWeight:600,marginBottom:5}}>
+        <span>{label}</span><span style={{color:G.w70}}><span style={{color:G.gold,fontWeight:700}}>{current}</span>/{target}g</span>
       </div>
-      <div style={{ height: 6, background: G.b5, borderRadius: 3, overflow: "hidden" }}>
-        <div style={{ width: `${pct}%`, height: "100%", borderRadius: 3,
-          background: `linear-gradient(90deg, ${color}88, ${color})`, transition: "width 1s ease" }} />
+      <div style={{height:5,background:G.s3,borderRadius:3,overflow:'hidden'}}><div style={{width:`${pct}%`,height:'100%',borderRadius:3,background:`linear-gradient(90deg,${color}99,${color})`,transition:'width .8s'}}/>
       </div>
     </div>
   );
 };
+const Loader=()=><div style={{padding:48,display:'flex',justifyContent:'center'}}><div className="spin"/></div>;
 
-const Ring = ({ pct = 70, size = 76, stroke = 6 }) => {
-  const r = (size - stroke) / 2;
-  const circ = 2 * Math.PI * r;
-  const offset = circ - (pct / 100) * circ;
-  return (
-    <div style={{ position: "relative", width: size, height: size, flexShrink: 0 }}>
-      <svg width={size} height={size} style={{ transform: "rotate(-90deg)" }}>
-        <defs>
-          <linearGradient id={`gr${size}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={G.goldD} />
-            <stop offset="100%" stopColor={G.goldL} />
-          </linearGradient>
-        </defs>
-        <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={G.b5} strokeWidth={stroke} />
-        <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={`url(#gr${size})`} strokeWidth={stroke}
-          strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset} />
-      </svg>
-      <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontFamily: "'Bebas Neue'", fontSize: size * 0.28, color: G.gold, lineHeight: 1 }}>{pct}%</span>
-        <span style={{ fontSize: 8, color: G.dim, letterSpacing: 1, fontWeight: 700 }}>DONE</span>
-      </div>
+/* ── FIREBASE API ─────────────────────────────────────────── */
+const api=(()=>{
+if(!window.**FB**)return{};
+const{auth,db,FV}=window.__fb;
+return{
+signUp:async(email,pass,name,role)=>{
+const c=await auth.createUserWithEmailAndPassword(email,pass);
+const av=name.split(’ ‘).map(w=>w[0]).join(’’).toUpperCase().slice(0,2);
+let coachId=null;
+if(role===‘client’){const q=await db.collection(‘users’).where(‘role’,’==’,‘coach’).limit(1).get();if(!q.empty)coachId=q.docs[0].id;}
+await db.collection(‘users’).doc(c.user.uid).set({email,name,role,avatar:av,coachId,createdAt:FV.serverTimestamp()});
+if(role===‘client’)await db.collection(‘nutrTargets’).doc(c.user.uid).set({calories:2200,protein:170,carbs:250,fat:70});
+},
+signIn:(e,p)=>auth.signInWithEmailAndPassword(e,p),
+signOut:()=>auth.signOut(),
+getUser:async uid=>{const d=await db.collection(‘users’).doc(uid).get();return d.exists?{id:d.id,…d.data()}:null;},
+watchAuth:cb=>auth.onAuthStateChanged(cb),
+watchClients:(cid,cb)=>db.collection(‘users’).where(‘coachId’,’==’,cid).onSnapshot(s=>cb(s.docs.map(d=>({id:d.id,…d.data()})))),
+watchProgs:(cid,cb)=>db.collection(‘programmes’).where(‘coachId’,’==’,cid).onSnapshot(s=>cb(s.docs.map(d=>({id:d.id,…d.data()})))),
+getClientProgs:async cid=>{const s=await db.collection(‘programmes’).where(‘assignedTo’,‘array-contains’,cid).get();return s.docs.map(d=>({id:d.id,…d.data()}));},
+createProg:d=>db.collection(‘programmes’).add({…d,assignedTo:[],createdAt:FV.serverTimestamp()}),
+updateProg:(id,d)=>db.collection(‘programmes’).doc(id).update(d),
+assignProg:(pid,cid)=>db.collection(‘programmes’).doc(pid).update({assignedTo:FV.arrayUnion(cid)}),
+unassignProg:(pid,cid)=>db.collection(‘programmes’).doc(pid).update({assignedTo:FV.arrayRemove(cid)}),
+watchSessions:(cid,cb)=>db.collection(‘sessions’).where(‘clientId’,’==’,cid).onSnapshot(s=>cb(s.docs.map(d=>({id:d.id,…d.data()})))),
+getSessions:async cid=>{const s=await db.collection(‘sessions’).where(‘clientId’,’==’,cid).get();return s.docs.map(d=>({id:d.id,…d.data()}));},
+logSession:d=>db.collection(‘sessions’).add({…d,at:FV.serverTimestamp()}),
+watchMsgs:(a,b,cb)=>db.collection(‘messages’).where(‘participants’,‘array-contains’,a).orderBy(‘createdAt’,‘asc’).onSnapshot(s=>cb(s.docs.map(d=>({id:d.id,…d.data()})).filter(m=>m.participants.includes(b)))),
+sendMsg:(from,to,text)=>db.collection(‘messages’).add({from,to,text,participants:[from,to].sort(),createdAt:FV.serverTimestamp()}),
+getNutr:async cid=>{const d=await db.collection(‘nutrTargets’).doc(cid).get();return d.exists?d.data():{calories:2200,protein:170,carbs:250,fat:70};},
+setNutr:(cid,t)=>db.collection(‘nutrTargets’).doc(cid).set(t),
+watchMeals:(cid,cb)=>{const t=new Date().toISOString().split(‘T’)[0];return db.collection(‘meals’).where(‘clientId’,’==’,cid).where(‘date’,’==’,t).onSnapshot(s=>cb(s.docs.map(d=>({id:d.id,…d.data()}))));},
+addMeal:d=>db.collection(‘meals’).add({…d,at:FV.serverTimestamp()}),
+delMeal:id=>db.collection(‘meals’).doc(id).delete(),
+getMeasurements:async cid=>{const s=await db.collection(‘measurements’).where(‘clientId’,’==’,cid).orderBy(‘date’,‘asc’).get();return s.docs.map(d=>({id:d.id,…d.data()}));},
+addMeasurement:d=>db.collection(‘measurements’).add(d),
+};
+})();
+
+/* ── SETUP NOTICE ─────────────────────────────────────────── */
+const Setup=()=>(
+
+  <div style={{minHeight:'100%',background:G.bg,display:'flex',alignItems:'center',justifyContent:'center',padding:24,overflowY:'auto'}}>
+    <div style={{maxWidth:460,background:G.s1,border:`1px solid ${G.goldBorder}`,borderRadius:18,padding:28}}>
+      <Logo n={28}/>
+      <div style={{marginTop:14,marginBottom:10,fontWeight:700,fontSize:16}}>Firebase Setup Required</div>
+      <p style={{color:G.w70,fontSize:13,lineHeight:1.7,marginBottom:12}}>Paste your Firebase config into index.html at the PASTE_YOUR_... placeholders to activate the live app.</p>
+      <ol style={{paddingLeft:18,color:G.w70,fontSize:13,lineHeight:2.1}}>
+        <li>Go to <a href="https://console.firebase.google.com" target="_blank" style={{color:G.gold}}>console.firebase.google.com</a></li>
+        <li>Create project → Enable Email/Password Auth → Create Firestore (test mode)</li>
+        <li>Project Settings → Your apps → Web icon → Register → Copy config</li>
+        <li>Paste into index.html replacing the 6 PASTE_YOUR_... values</li>
+        <li>Commit to GitHub and refresh</li>
+      </ol>
     </div>
-  );
+  </div>
+);
+
+/* ── AUTH ─────────────────────────────────────────────────── */
+const Auth=()=>{
+const[mode,setMode]=useState(‘login’);
+const[name,setName]=useState(’’);
+const[email,setEmail]=useState(’’);
+const[pass,setPass]=useState(’’);
+const[role,setRole]=useState(‘client’);
+const[err,setErr]=useState(’’);
+const[busy,setBusy]=useState(false);
+const[hasCoach,setHasCoach]=useState(null);
+useEffect(()=>{window.__fb?.db.collection(‘users’).where(‘role’,’==’,‘coach’).limit(1).get().then(s=>{setHasCoach(!s.empty);if(s.empty&&mode===‘signup’)setRole(‘coach’);});},[mode]);
+const go=async()=>{
+setErr(’’);setBusy(true);
+try{
+if(mode===‘login’)await api.signIn(email,pass);
+else{if(!name.trim())throw new Error(‘Enter your full name’);if(pass.length<6)throw new Error(‘Password must be 6+ characters’);await api.signUp(email,pass,name.trim(),role);}
+}catch(e){setErr(e.message.replace(‘Firebase: ‘,’’).replace(/(auth/[^)]+)/,’’).trim());}
+setBusy(false);
+};
+return(
+<div style={{minHeight:‘100%’,display:‘flex’,flexDirection:‘column’,alignItems:‘center’,justifyContent:‘center’,padding:24,background:G.bg,overflowY:‘auto’,position:‘relative’}}>
+<div style={{position:‘absolute’,top:-80,right:-40,width:240,height:240,background:‘radial-gradient(circle,rgba(201,168,76,.07),transparent 70%)’,pointerEvents:‘none’}}/>
+<div className=“fu” style={{textAlign:‘center’,marginBottom:28}}><Logo n={42}/><div style={{fontSize:11,letterSpacing:4,color:G.w40,marginTop:4,textTransform:‘uppercase’}}>by James McCahill</div></div>
+<div className=“fu d1” style={{width:‘100%’,maxWidth:360,background:G.s1,border:`1px solid ${G.s3}`,borderRadius:18,padding:24,boxShadow:‘0 20px 60px rgba(0,0,0,.5)’}}>
+<div style={{display:‘flex’,gap:3,background:G.s2,borderRadius:10,padding:3,marginBottom:20}}>
+{[‘login’,‘signup’].map(m=><button key={m} onClick={()=>{setMode(m);setErr(’’);}}style={{flex:1,padding:‘9px 0’,borderRadius:8,fontSize:12,fontWeight:700,letterSpacing:1,textTransform:‘uppercase’,background:mode===m?G.gold:‘transparent’,color:mode===m?G.bg:G.w40,transition:‘all .2s’}}>{m===‘login’?‘Sign In’:‘Create Account’}</button>)}
+</div>
+{mode===‘signup’&&<>
+<Inp label="Full Name" value={name} onChange={setName} placeholder="John Smith"/>
+{hasCoach!==null&&<div style={{marginBottom:12}}>
+<div style={{fontSize:10,letterSpacing:1.5,textTransform:‘uppercase’,color:G.w40,marginBottom:5,fontWeight:600}}>I am a…</div>
+<div style={{display:‘flex’,gap:8}}>
+{[[‘client’,‘👤 Client’,false],[‘coach’,‘⭐ Coach’,hasCoach]].map(([r,l,dis])=>(
+<button key={r} onClick={()=>!dis&&setRole(r)} disabled={dis} style={{flex:1,padding:10,borderRadius:10,fontSize:12,fontWeight:700,background:role===r?G.gold:G.s2,color:role===r?G.bg:G.w70,border:`1.5px solid ${role===r?G.gold:G.s4}`,opacity:dis?.3:1}}>{l}{dis?’ (taken)’:’’}</button>
+))}
+</div>
+</div>}
+</>}
+<Inp label="Email" type="email" value={email} onChange={setEmail} placeholder="your@email.com"/>
+<Inp label="Password" type="password" value={pass} onChange={setPass} placeholder="••••••••"/>
+{err&&<div style={{color:G.red,fontSize:12,marginBottom:10,fontWeight:600}}>⚠ {err}</div>}
+<Btn onClick={go} disabled={busy} sx={{width:‘100%’}}>{busy?‘Please wait…’:mode===‘login’?‘Sign In’:‘Create Account’}</Btn>
+{mode===‘signup’&&hasCoach===false&&<div style={{marginTop:12,padding:12,background:G.goldDim,borderRadius:10,border:`1px solid ${G.goldBorder}`,fontSize:11,color:G.goldL,lineHeight:1.6}}>💡 First user — you’ll be set as coach. Share your app URL with clients.</div>}
+</div>
+</div>
+);
 };
 
-// ─── AUTH SCREEN (login + signup) ────────────────────────────────────────
-function AuthScreen() {
-  const [mode, setMode] = useState("login");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("client");
-  const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [hasCoach, setHasCoach] = useState(null);
+/* ── SHELL ────────────────────────────────────────────────── */
+const Shell=({user,logout,tabs,active,setTab,children})=>(
 
-  useEffect(() => {
-    // Check if any coach exists to decide if first signup is coach
-    db.collection("users").where("role", "==", "coach").limit(1).get()
-      .then(snap => {
-        setHasCoach(!snap.empty);
-        if (snap.empty && mode === "signup") setRole("coach");
-      });
-  }, [mode]);
-
-  const submit = async () => {
-    setErr(""); setLoading(true);
-    try {
-      if (mode === "login") {
-        await api.signIn(email, pass);
-      } else {
-        if (!name.trim()) throw new Error("Please enter your name");
-        if (pass.length < 6) throw new Error("Password must be at least 6 characters");
-        await api.signUp(email, pass, name.trim(), role);
-      }
-    } catch (e) {
-      setErr(e.message.replace("Firebase: ", "").replace(/\(auth\/[^)]+\)/, "").trim());
-    }
-    setLoading(false);
-  };
-
-  return (
-    <div style={{ minHeight: "100%", background: G.black, display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "center", padding: 24, position: "relative", overflowY: "auto" }}>
-      <div style={{ position: "absolute", top: -120, right: -80, width: 320, height: 320,
-        background: `radial-gradient(circle, ${G.glow} 0%, transparent 70%)`, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: -80, left: -60, width: 240, height: 240,
-        background: `radial-gradient(circle, ${G.glow} 0%, transparent 70%)`, pointerEvents: "none" }} />
-
-      <div className="fu" style={{ textAlign: "center", marginBottom: 30 }}>
-        <Logo size={46} />
-        <div style={{ fontSize: 11, letterSpacing: 4, color: G.dim, textTransform: "uppercase",
-          fontWeight: 500, marginTop: 4 }}>by James McCahill</div>
-      </div>
-
-      <div className="fu d1" style={{ width: "100%", maxWidth: 360, background: G.b2,
-        border: `1px solid ${G.border}`, borderRadius: 18, padding: 26,
-        boxShadow: `0 24px 60px rgba(0,0,0,.6)` }}>
-        <div style={{ display: "flex", gap: 3, background: G.b4, padding: 3, borderRadius: 10, marginBottom: 20 }}>
-          {["login", "signup"].map(m => (
-            <button key={m} onClick={() => { setMode(m); setErr(""); }}
-              style={{ flex: 1, padding: "9px 0", borderRadius: 8, fontSize: 11,
-                fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase",
-                background: mode === m ? G.gold : "transparent",
-                color: mode === m ? G.black : G.dim }}>
-              {m === "login" ? "Sign In" : "Create Account"}
-            </button>
-          ))}
+  <div style={{height:'100%',display:'flex',flexDirection:'column',maxWidth:430,margin:'0 auto',background:G.bg}}>
+    <div style={{background:G.s1,borderBottom:`1px solid ${G.s3}`,padding:'44px 20px 13px',flexShrink:0}}>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+        <Logo n={22}/>
+        <div style={{display:'flex',gap:10,alignItems:'center'}}>
+          {user.role==='coach'&&<Pill c={G.gold}>Coach</Pill>}
+          <button onClick={logout}><Av name={user.name} size={32}/></button>
         </div>
-
-        {mode === "signup" && (
-          <>
-            <Input label="Full Name" value={name} onChange={setName} placeholder="John Smith" />
-            {hasCoach !== null && (
-              <div style={{ marginBottom: 14 }}>
-                <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: G.dim, marginBottom: 6, fontWeight: 700 }}>
-                  I am a...
-                </div>
-                <div style={{ display: "flex", gap: 8 }}>
-                  <button onClick={() => setRole("client")}
-                    style={{ flex: 1, padding: "11px", borderRadius: 10, fontSize: 12, fontWeight: 700,
-                      background: role === "client" ? G.gold : G.b4,
-                      color: role === "client" ? G.black : G.dim,
-                      border: `1px solid ${role === "client" ? G.gold : G.b5}` }}>
-                    👤 Client
-                  </button>
-                  <button onClick={() => setRole("coach")} disabled={hasCoach}
-                    style={{ flex: 1, padding: "11px", borderRadius: 10, fontSize: 12, fontWeight: 700,
-                      background: role === "coach" ? G.gold : G.b4,
-                      color: role === "coach" ? G.black : G.dim,
-                      border: `1px solid ${role === "coach" ? G.gold : G.b5}`,
-                      opacity: hasCoach ? 0.4 : 1, cursor: hasCoach ? "not-allowed" : "pointer" }}>
-                    ⭐ Coach {hasCoach && "(taken)"}
-                  </button>
-                </div>
-              </div>
-            )}
-          </>
-        )}
-        <Input label="Email" type="email" value={email} onChange={setEmail} placeholder="your@email.com" />
-        <Input label="Password" type="password" value={pass} onChange={setPass} placeholder="••••••••" />
-
-        {err && <div style={{ color: G.red, fontSize: 12, marginBottom: 12, fontWeight: 600 }}>⚠ {err}</div>}
-
-        <GoldBtn onClick={submit} disabled={loading} style={{ width: "100%" }}>
-          {loading ? "Please wait…" : (mode === "login" ? "Sign In" : "Create Account")}
-        </GoldBtn>
-
-        {mode === "signup" && hasCoach === false && (
-          <div style={{ marginTop: 14, padding: 12, background: G.glow, borderRadius: 10,
-            border: `1px solid ${G.border}`, fontSize: 11, color: G.goldL, lineHeight: 1.5 }}>
-            💡 <strong>You're the first user</strong> — you'll be set as the coach. Share this app URL with your clients so they can sign up.
-          </div>
-        )}
       </div>
     </div>
-  );
-}
-
-// ─── APP SHELL ────────────────────────────────────────────────────────────
-function AppShell({ user, onLogout, children, tabs, activeTab, setTab }) {
-  return (
-    <div style={{ height: "100%", display: "flex", flexDirection: "column",
-      maxWidth: 430, margin: "0 auto", background: G.black }}>
-      <div style={{ background: G.b2, borderBottom: `1px solid ${G.border}`,
-        padding: "44px 20px 14px", flexShrink: 0 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Logo size={26} />
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            {user.role === "coach" && (
-              <span style={{ background: G.glow, border: `1px solid ${G.border}`,
-                borderRadius: 20, padding: "3px 10px", fontSize: 10, fontWeight: 800,
-                color: G.gold, letterSpacing: 1.5 }}>COACH</span>
-            )}
-            <button onClick={onLogout} title="Sign out">
-              <Avatar initials={user.avatar} size={36} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", WebkitOverflowScrolling: "touch" }}>
-        {children}
-      </div>
-
-      <div style={{ height: 76, background: G.b2, borderTop: `1px solid ${G.border}`,
-        display: "flex", alignItems: "center", paddingBottom: 8, flexShrink: 0 }}>
-        {tabs.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)}
-            style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center",
-              gap: 4, padding: "8px 0" }}>
-            <span style={{ fontSize: 20, filter: activeTab === t.id ? `drop-shadow(0 0 6px ${G.gold})` : "none",
-              transform: activeTab === t.id ? "translateY(-2px)" : "none", transition: "all .2s" }}>{t.icon}</span>
-            <span style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 800,
-              color: activeTab === t.id ? G.gold : G.dim }}>{t.label}</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// CLIENT APP
-// ═══════════════════════════════════════════════════════════════════════════
-
-function ClientHome({ user }) {
-  const [sessions, setSessions] = useState([]);
-  const [progs, setProgs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsub = api.watchSessions(user.id, setSessions);
-    api.getClientProgrammes(user.id).then(p => { setProgs(p); setLoading(false); });
-    return unsub;
-  }, [user.id]);
-
-  if (loading) return <Loading />;
-
-  const completed = sessions.filter(s => s.completed).length;
-  const prog = progs[0];
-  const allWorkouts = prog?.workouts || [];
-  const nextWorkout = allWorkouts.find(w => !sessions.find(s => s.workoutId === w.id));
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <div style={{ background: `linear-gradient(160deg, ${G.b3}, ${G.black})`,
-        padding: "24px 20px 20px", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: -50, right: -50, width: 200, height: 200,
-          background: `radial-gradient(circle, ${G.glow}, transparent 70%)`, pointerEvents: "none" }} />
-        <div className="fu" style={{ fontSize: 13, color: G.dim, fontWeight: 600, letterSpacing: 1 }}>WELCOME BACK,</div>
-        <div className="fu d1" style={{ fontFamily: "'Bebas Neue'", fontSize: 36, letterSpacing: 2 }}>
-          {user.name.split(" ")[0].toUpperCase()}
-        </div>
-        {completed > 0 && (
-          <div className="fu d2" style={{ display: "inline-flex", alignItems: "center", gap: 6,
-            background: G.glow, border: `1px solid ${G.border}`, borderRadius: 20,
-            padding: "4px 12px", marginTop: 8, fontSize: 12, fontWeight: 800, color: G.gold }}>
-            🔥 {completed} Sessions Complete
-          </div>
-        )}
-      </div>
-
-      <div className="fu d2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, padding: "14px 20px" }}>
-        {[
-          { v: completed, l: "Sessions" },
-          { v: progs.length, l: "Programmes" },
-          { v: allWorkouts.length - completed, l: "Remaining" },
-        ].map(s => (
-          <Card key={s.l} style={{ textAlign: "center", padding: "14px 8px" }}>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: 30, color: G.gold }}>{s.v}</div>
-            <div style={{ fontSize: 9, letterSpacing: 1.5, textTransform: "uppercase", color: G.dim, fontWeight: 700 }}>{s.l}</div>
-          </Card>
-        ))}
-      </div>
-
-      <SectionTitle>TODAY'S WORKOUT</SectionTitle>
-      {nextWorkout ? (
-        <div className="fu d3" style={{ margin: "0 20px 20px", background: `linear-gradient(135deg, ${G.b3}, ${G.b4})`,
-          border: `1px solid ${G.border}`, borderRadius: 14, padding: 20, position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2,
-            background: `linear-gradient(90deg, ${G.goldD}, ${G.goldL})` }} />
-          <div style={{ fontSize: 10, letterSpacing: 2, color: G.gold, fontWeight: 800, marginBottom: 6 }}>
-            ⚡ {prog.name} — Week {nextWorkout.week}, Day {nextWorkout.day}
-          </div>
-          <div style={{ fontFamily: "'Bebas Neue'", fontSize: 26, letterSpacing: 1, marginBottom: 4 }}>
-            {nextWorkout.name}
-          </div>
-          <div style={{ display: "flex", gap: 16, fontSize: 12, color: G.dim, marginBottom: 14 }}>
-            <span>⏱ {nextWorkout.duration} min</span>
-            <span>🏋️ {nextWorkout.exercises.length} exercises</span>
-          </div>
-          <div style={{ fontSize: 11, color: G.goldL }}>Go to Training tab to log this workout ↓</div>
-        </div>
-      ) : progs.length === 0 ? (
-        <EmptyState icon="📋" title="No programmes yet" desc="Your coach will assign you programmes soon." />
-      ) : (
-        <Card style={{ margin: "0 20px 20px", textAlign: "center", color: G.dim }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>✅</div>
-          <div style={{ fontWeight: 700, color: G.white }}>All workouts complete!</div>
-          <div style={{ fontSize: 12, marginTop: 4 }}>Message your coach for next steps.</div>
-        </Card>
-      )}
-
-      {prog && allWorkouts.length > 0 && (
-        <>
-          <SectionTitle>MY PROGRAMME</SectionTitle>
-          <div className="fu d4" style={{ margin: "0 20px 20px" }}>
-            <Card style={{ display: "flex", gap: 16, alignItems: "center" }}>
-              <Ring pct={Math.round((completed / allWorkouts.length) * 100)} />
-              <div>
-                <div style={{ fontWeight: 800, fontSize: 15, marginBottom: 3 }}>{prog.name}</div>
-                <div style={{ fontSize: 12, color: G.dim, marginBottom: 6 }}>{prog.weeks} weeks · {prog.category}</div>
-                <div style={{ fontSize: 12, color: G.gold, fontWeight: 700 }}>
-                  {completed} of {allWorkouts.length} sessions done
-                </div>
-              </div>
-            </Card>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-function ClientTraining({ user }) {
-  const [progs, setProgs] = useState([]);
-  const [sessions, setSessions] = useState([]);
-  const [activeWorkout, setActiveWorkout] = useState(null);
-  const [logs, setLogs] = useState({});
-  const [note, setNote] = useState("");
-  const [saving, setSaving] = useState(false);
-  const [done, setDone] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    Promise.all([api.getClientProgrammes(user.id), api.getSessions(user.id)])
-      .then(([p, s]) => { setProgs(p); setSessions(s); setLoading(false); });
-    const unsub = api.watchSessions(user.id, setSessions);
-    return unsub;
-  }, [user.id]);
-
-  const finishWorkout = async (w, prog) => {
-    setSaving(true);
-    try {
-      await api.logSession({
-        clientId: user.id, workoutId: w.id, progId: prog.id,
-        workoutName: w.name, date: new Date().toISOString().split("T")[0],
-        completed: true, notes: note, logs,
-      });
-      setDone(true);
-      setTimeout(() => { setActiveWorkout(null); setLogs({}); setNote(""); setDone(false); }, 1800);
-    } catch (e) {
-      alert("Failed to save: " + e.message);
-    }
-    setSaving(false);
-  };
-
-  if (loading) return <Loading />;
-
-  if (activeWorkout) {
-    const { w, prog } = activeWorkout;
-    return (
-      <div>
-        <div style={{ background: G.b2, padding: "16px 20px", borderBottom: `1px solid ${G.border}`,
-          display: "flex", alignItems: "center", gap: 12 }}>
-          <button onClick={() => setActiveWorkout(null)} style={{ fontSize: 20, color: G.dim }}>←</button>
-          <div>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: 20, letterSpacing: 1 }}>{w.name}</div>
-            <div style={{ fontSize: 11, color: G.dim }}>{prog.name}</div>
-          </div>
-        </div>
-        {done ? (
-          <div style={{ padding: 60, textAlign: "center" }}>
-            <div style={{ fontSize: 64, marginBottom: 16 }}>🏆</div>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: 32, color: G.gold }}>SESSION COMPLETE!</div>
-            <div style={{ color: G.dim, marginTop: 8 }}>Saving to your record…</div>
-          </div>
-        ) : (
-          <div style={{ padding: 20 }}>
-            {w.exercises.map((ex, i) => (
-              <Card key={i} style={{ marginBottom: 12 }}>
-                <div style={{ fontWeight: 800, fontSize: 14, marginBottom: 4 }}>{ex.name}</div>
-                <div style={{ fontSize: 12, color: G.dim, marginBottom: 10 }}>
-                  {ex.sets} sets × {ex.reps} · Rest {ex.rest}
-                  {ex.notes && <span style={{ color: G.gold }}> · {ex.notes}</span>}
-                </div>
-                <Input label="Log weight / reps" value={logs[ex.name] || ""}
-                  onChange={v => setLogs(prev => ({ ...prev, [ex.name]: v }))}
-                  placeholder="e.g. 100kg × 6" />
-              </Card>
-            ))}
-            <div style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 11, letterSpacing: 2, color: G.dim, textTransform: "uppercase",
-                fontWeight: 700, marginBottom: 6 }}>Session Notes</div>
-              <textarea value={note} onChange={e => setNote(e.target.value)}
-                placeholder="How did it feel? Any PBs?"
-                style={{ width: "100%", background: G.b4, border: `1px solid ${G.b5}`,
-                  borderRadius: 10, padding: "13px 16px", fontSize: 13, color: G.white,
-                  minHeight: 80, resize: "none", fontFamily: "'Barlow'" }} />
-            </div>
-            <GoldBtn onClick={() => finishWorkout(w, prog)} disabled={saving} style={{ width: "100%" }}>
-              {saving ? "Saving…" : "✓ Complete Session"}
-            </GoldBtn>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle>MY TRAINING</SectionTitle>
-      {progs.length === 0 ? (
-        <EmptyState icon="📋" title="No programmes assigned" desc="Message your coach to get started." />
-      ) : progs.map(prog => {
-        const ws = prog.workouts || [];
-        return (
-          <div key={prog.id} style={{ padding: "0 20px 20px" }}>
-            <div style={{ background: `linear-gradient(135deg,${G.b3},${G.b4})`,
-              border: `1px solid ${G.border}`, borderRadius: 14, overflow: "hidden" }}>
-              <div style={{ padding: 16, display: "flex", gap: 12, alignItems: "center",
-                borderBottom: `1px solid ${G.b5}` }}>
-                <span style={{ fontSize: 32 }}>{prog.emoji}</span>
-                <div>
-                  <div style={{ fontWeight: 800, fontSize: 15 }}>{prog.name}</div>
-                  <div style={{ fontSize: 11, color: G.dim }}>{prog.weeks} weeks · {prog.category}</div>
-                  <div style={{ marginTop: 4 }}><Badge>🔥 Active</Badge></div>
-                </div>
-              </div>
-              {ws.length === 0 ? (
-                <div style={{ padding: 20, textAlign: "center", color: G.dim, fontSize: 12 }}>
-                  No workouts added yet. Your coach will add them shortly.
-                </div>
-              ) : ws.map(w => {
-                const isDone = sessions.find(s => s.workoutId === w.id && s.completed);
-                return (
-                  <div key={w.id} onClick={() => !isDone && setActiveWorkout({ w, prog })}
-                    style={{ display: "flex", alignItems: "center", gap: 12,
-                      padding: "13px 16px", borderBottom: `1px solid ${G.b5}`,
-                      cursor: isDone ? "default" : "pointer", opacity: isDone ? 0.6 : 1 }}>
-                    <div style={{ width: 30, height: 30, borderRadius: "50%", flexShrink: 0,
-                      background: isDone ? `${G.gold}20` : G.b5,
-                      border: `2px solid ${isDone ? G.gold : G.b5}`,
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      fontSize: 14 }}>{isDone ? "✓" : "▶"}</div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 700, fontSize: 13 }}>W{w.week}D{w.day} — {w.name}</div>
-                      <div style={{ fontSize: 11, color: G.dim }}>{w.duration} min · {w.exercises.length} exercises</div>
-                    </div>
-                    {isDone && <Badge>Done</Badge>}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function ClientNutrition({ user }) {
-  const [targets, setTargets] = useState(null);
-  const [meals, setMeals] = useState([]);
-  const [showAdd, setShowAdd] = useState(false);
-  const [form, setForm] = useState({ name: "", time: "", items: "", calories: "", protein: "", carbs: "", fat: "" });
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    api.getNutritionTargets(user.id).then(t => { setTargets(t); setLoading(false); });
-    const unsub = api.watchTodayMeals(user.id, setMeals);
-    return unsub;
-  }, [user.id]);
-
-  if (loading || !targets) return <Loading />;
-
-  const totals = meals.reduce((a, m) => ({
-    calories: a.calories + (m.calories || 0), protein: a.protein + (m.protein || 0),
-    carbs: a.carbs + (m.carbs || 0), fat: a.fat + (m.fat || 0),
-  }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
-
-  const calPct = Math.min(100, Math.round((totals.calories / targets.calories) * 100));
-
-  const addMeal = async () => {
-    if (!form.name) return alert("Enter a meal name");
-    setSaving(true);
-    try {
-      await api.addMeal({
-        clientId: user.id, date: new Date().toISOString().split("T")[0],
-        ...form, calories: +form.calories || 0, protein: +form.protein || 0,
-        carbs: +form.carbs || 0, fat: +form.fat || 0,
-      });
-      setShowAdd(false);
-      setForm({ name: "", time: "", items: "", calories: "", protein: "", carbs: "", fat: "" });
-    } catch (e) { alert(e.message); }
-    setSaving(false);
-  };
-
-  const deleteMeal = async (id) => {
-    if (!confirm("Delete this meal?")) return;
-    await api.deleteMeal(id);
-  };
-
-  const r = 60; const circ = 2 * Math.PI * r;
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle>TODAY'S NUTRITION</SectionTitle>
-
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0 20px 20px" }}>
-        <div style={{ position: "relative", width: 140, height: 140, marginBottom: 20 }}>
-          <svg width={140} height={140} style={{ transform: "rotate(-90deg)" }}>
-            <defs>
-              <linearGradient id="calGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor={G.goldD} />
-                <stop offset="100%" stopColor={G.goldL} />
-              </linearGradient>
-            </defs>
-            <circle cx={70} cy={70} r={r} fill="none" stroke={G.b5} strokeWidth={10} />
-            <circle cx={70} cy={70} r={r} fill="none" stroke="url(#calGrad)" strokeWidth={10}
-              strokeLinecap="round" strokeDasharray={circ}
-              strokeDashoffset={circ - (calPct / 100) * circ} />
-          </svg>
-          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column",
-            alignItems: "center", justifyContent: "center" }}>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: 28, color: G.gold, lineHeight: 1 }}>
-              {totals.calories.toLocaleString()}
-            </div>
-            <div style={{ fontSize: 10, color: G.dim, letterSpacing: 1.5, fontWeight: 700 }}>KCAL</div>
-            <div style={{ fontSize: 11, color: G.dim }}>of {targets.calories}</div>
-          </div>
-        </div>
-
-        <div style={{ width: "100%" }}>
-          <MacroBar label="Protein" current={totals.protein} target={targets.protein} color={G.gold} />
-          <MacroBar label="Carbs" current={totals.carbs} target={targets.carbs} color={G.goldD} />
-          <MacroBar label="Fat" current={totals.fat} target={targets.fat} color="#6b4c10" />
-        </div>
-      </div>
-
-      <SectionTitle action="+ Add Meal" onAction={() => setShowAdd(true)}>MEALS TODAY</SectionTitle>
-
-      {showAdd && (
-        <div style={{ margin: "0 20px 16px", background: G.b3, border: `1px solid ${G.border}`,
-          borderRadius: 14, padding: 18 }}>
-          <div style={{ fontFamily: "'Bebas Neue'", fontSize: 18, letterSpacing: 2, marginBottom: 14 }}>LOG MEAL</div>
-          <Input label="Meal name" value={form.name} onChange={v => setForm(p=>({...p,name:v}))} placeholder="Breakfast" />
-          <Input label="Time" value={form.time} onChange={v => setForm(p=>({...p,time:v}))} placeholder="07:30" />
-          <Input label="Food items" value={form.items} onChange={v => setForm(p=>({...p,items:v}))} placeholder="Eggs, oats, banana" />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-            <Input label="Calories" type="number" value={form.calories} onChange={v => setForm(p=>({...p,calories:v}))} placeholder="500" />
-            <Input label="Protein (g)" type="number" value={form.protein} onChange={v => setForm(p=>({...p,protein:v}))} placeholder="40" />
-            <Input label="Carbs (g)" type="number" value={form.carbs} onChange={v => setForm(p=>({...p,carbs:v}))} placeholder="60" />
-            <Input label="Fat (g)" type="number" value={form.fat} onChange={v => setForm(p=>({...p,fat:v}))} placeholder="15" />
-          </div>
-          <div style={{ display: "flex", gap: 10, marginTop: 4 }}>
-            <GoldBtn onClick={addMeal} disabled={saving} sm style={{ flex: 1 }}>{saving ? "Saving…" : "Save"}</GoldBtn>
-            <OutlineBtn onClick={() => setShowAdd(false)} style={{ flex: 1 }}>Cancel</OutlineBtn>
-          </div>
-        </div>
-      )}
-
-      <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 10 }}>
-        {meals.length === 0 ? (
-          <div style={{ textAlign: "center", color: G.dim, padding: 30, fontSize: 13 }}>
-            No meals logged yet today. Tap + Add Meal to get started.
-          </div>
-        ) : meals.map(m => (
-          <Card key={m.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 800, fontSize: 13 }}>{m.name}</div>
-              <div style={{ fontSize: 11, color: G.dim, marginTop: 2 }}>{m.time} — {m.items}</div>
-              <div style={{ fontSize: 11, color: G.dim, marginTop: 2 }}>
-                P: {m.protein}g · C: {m.carbs}g · F: {m.fat}g
-              </div>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 4 }}>
-              <div style={{ fontFamily: "'Bebas Neue'", fontSize: 24, color: G.gold }}>{m.calories}</div>
-              <button onClick={() => deleteMeal(m.id)} style={{ fontSize: 11, color: G.red }}>Delete</button>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ClientMessages({ user }) {
-  const [msgs, setMsgs] = useState([]);
-  const [text, setText] = useState("");
-  const [coachInfo, setCoachInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [sending, setSending] = useState(false);
-  const bottomRef = useRef();
-
-  useEffect(() => {
-    if (!user.coachId) { setLoading(false); return; }
-    api.getUser(user.coachId).then(setCoachInfo);
-    const unsub = api.watchConversation(user.id, user.coachId, ms => {
-      setMsgs(ms); setLoading(false);
-      setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
-    });
-    return unsub;
-  }, [user.id, user.coachId]);
-
-  const send = async () => {
-    if (!text.trim()) return;
-    setSending(true);
-    try {
-      await api.sendMessage(user.id, user.coachId, text.trim());
-      setText("");
-    } catch (e) { alert(e.message); }
-    setSending(false);
-  };
-
-  if (!user.coachId) return <EmptyState icon="🔗" title="Not linked to a coach" desc="Ask your coach to make sure you're linked." />;
-  if (loading) return <Loading />;
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <SectionTitle>COACH CHAT</SectionTitle>
-      {coachInfo && (
-        <div style={{ margin: "0 20px 12px", background: G.b3, border: `1px solid ${G.border}`,
-          borderRadius: 14, padding: "12px 16px", display: "flex", alignItems: "center", gap: 12 }}>
-          <Avatar initials={coachInfo.avatar} size={40} />
-          <div>
-            <div style={{ fontWeight: 800, fontSize: 13 }}>{coachInfo.name}</div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, color: G.green }}>
-              <div style={{ width: 7, height: 7, borderRadius: "50%", background: G.green,
-                animation: "greenPulse 2s infinite" }} />
-              Online
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 20px 10px", display: "flex",
-        flexDirection: "column", gap: 10 }}>
-        {msgs.length === 0 ? (
-          <div style={{ color: G.dim, textAlign: "center", padding: 30, fontSize: 13 }}>
-            Say hi to your coach — they'll see it right away.
-          </div>
-        ) : msgs.map(m => {
-          const isMe = m.from === user.id;
-          return (
-            <div key={m.id} style={{ display: "flex", flexDirection: "column",
-              alignItems: isMe ? "flex-end" : "flex-start" }}>
-              <div style={{ maxWidth: "80%", padding: "10px 14px", borderRadius: 14,
-                borderBottomRightRadius: isMe ? 4 : 14,
-                borderBottomLeftRadius: isMe ? 14 : 4,
-                background: isMe ? `linear-gradient(135deg, ${G.goldD}, ${G.gold})` : G.b4,
-                border: isMe ? "none" : `1px solid ${G.b5}`,
-                color: isMe ? G.black : G.white,
-                fontWeight: isMe ? 600 : 400, fontSize: 13, lineHeight: 1.5 }}>
-                {m.text}
-              </div>
-            </div>
-          );
-        })}
-        <div ref={bottomRef} />
-      </div>
-
-      <div style={{ display: "flex", gap: 10, padding: "10px 20px 4px",
-        borderTop: `1px solid ${G.b5}` }}>
-        <input value={text} onChange={e => setText(e.target.value)}
-          onKeyDown={e => e.key === "Enter" && send()}
-          placeholder="Message your coach…"
-          style={{ flex: 1, background: G.b4, border: `1px solid ${G.b5}`,
-            borderRadius: 22, padding: "11px 18px", fontSize: 13, color: G.white }} />
-        <button onClick={send} disabled={sending} style={{ width: 42, height: 42, borderRadius: "50%",
-          background: `linear-gradient(135deg, ${G.goldD}, ${G.gold})`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 16, flexShrink: 0, opacity: sending ? 0.5 : 1 }}>➤</button>
-      </div>
-    </div>
-  );
-}
-
-function ClientProgress({ user }) {
-  const [weight, setWeight] = useState("");
-  const [bodyFat, setBodyFat] = useState("");
-  const [measurements, setMeasurements] = useState([]);
-  const [sessions, setSessions] = useState([]);
-  const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const load = () => Promise.all([api.getMeasurements(user.id), api.getSessions(user.id)])
-    .then(([m, s]) => { setMeasurements(m); setSessions(s); setLoading(false); });
-
-  useEffect(() => { load(); }, [user.id]);
-
-  const addEntry = async () => {
-    if (!weight) return alert("Enter weight");
-    setSaving(true);
-    try {
-      await api.addMeasurement({
-        clientId: user.id,
-        date: new Date().toISOString().split("T")[0],
-        weight: +weight, bodyFat: +bodyFat || null,
-      });
-      setWeight(""); setBodyFat("");
-      load();
-    } catch (e) { alert(e.message); }
-    setSaving(false);
-  };
-
-  if (loading) return <Loading />;
-
-  const startW = measurements[0]?.weight || 0;
-  const currW = measurements[measurements.length - 1]?.weight || 0;
-  const diff = startW ? (currW - startW).toFixed(1) : "0";
-
-  const weights = measurements.map(m=>m.weight);
-  const maxW = weights.length ? Math.max(...weights) : 1;
-  const minW = weights.length ? Math.min(...weights) : 0;
-  const range = maxW - minW || 1;
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle>PROGRESS</SectionTitle>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, padding: "0 20px 16px" }}>
-        <Card style={{ textAlign: "center" }}>
-          <div style={{ fontFamily: "'Bebas Neue'", fontSize: 30, color: +diff < 0 ? G.green : (+diff > 0 ? G.red : G.gold) }}>
-            {diff > 0 ? "+" : ""}{diff}kg
-          </div>
-          <div style={{ fontSize: 10, letterSpacing: 1.5, color: G.dim, textTransform: "uppercase", fontWeight: 700 }}>Weight Change</div>
-        </Card>
-        <Card style={{ textAlign: "center" }}>
-          <div style={{ fontFamily: "'Bebas Neue'", fontSize: 30, color: G.gold }}>{sessions.filter(s=>s.completed).length}</div>
-          <div style={{ fontSize: 10, letterSpacing: 1.5, color: G.dim, textTransform: "uppercase", fontWeight: 700 }}>Sessions Done</div>
-        </Card>
-      </div>
-
-      <div style={{ padding: "0 20px 20px" }}>
-        <Card>
-          <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 16 }}>WEIGHT HISTORY</div>
-          {measurements.length < 2 ? (
-            <div style={{ color: G.dim, fontSize: 13, textAlign: "center", padding: 16 }}>
-              Log at least 2 entries to see your chart.
-            </div>
-          ) : (
-            <svg width="100%" height="120" viewBox={`0 0 ${Math.max(measurements.length*50,200)} 120`} preserveAspectRatio="none">
-              {measurements.map((p, i) => {
-                const x = (i / Math.max(measurements.length - 1, 1)) * 100;
-                const y = 100 - ((p.weight - minW) / range) * 80;
-                return (
-                  <g key={i}>
-                    {i > 0 && (() => {
-                      const prev = measurements[i-1];
-                      const px = ((i-1)/Math.max(measurements.length-1,1))*100;
-                      const py = 100 - ((prev.weight-minW)/range)*80;
-                      return <line x1={`${px}%`} y1={py} x2={`${x}%`} y2={y} stroke={G.gold} strokeWidth={2} />;
-                    })()}
-                    <circle cx={`${x}%`} cy={y} r={4} fill={G.gold} />
-                    <text x={`${x}%`} y={y-8} textAnchor="middle" fill={G.goldL} fontSize={10}>{p.weight}kg</text>
-                    <text x={`${x}%`} y={115} textAnchor="middle" fill={G.dim} fontSize={8}>{p.date.slice(5)}</text>
-                  </g>
-                );
-              })}
-            </svg>
-          )}
-        </Card>
-      </div>
-
-      <SectionTitle>LOG MEASUREMENTS</SectionTitle>
-      <div style={{ padding: "0 20px 20px" }}>
-        <Card>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
-            <Input label="Weight (kg)" type="number" value={weight} onChange={setWeight} placeholder="83.5" />
-            <Input label="Body Fat %" type="number" value={bodyFat} onChange={setBodyFat} placeholder="15" />
-          </div>
-          <GoldBtn onClick={addEntry} disabled={saving} style={{ width: "100%" }} sm>
-            {saving ? "Saving…" : "Log Today's Measurements"}
-          </GoldBtn>
-        </Card>
-      </div>
-
-      <SectionTitle>SESSION HISTORY</SectionTitle>
-      <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 10 }}>
-        {sessions.length === 0 ? (
-          <div style={{ color: G.dim, textAlign: "center", padding: 20, fontSize: 13 }}>No sessions logged yet.</div>
-        ) : [...sessions].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,10).map(s => (
-          <Card key={s.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>
-              <div style={{ fontWeight: 800, fontSize: 13 }}>✓ {s.workoutName || "Session"}</div>
-              <div style={{ fontSize: 11, color: G.dim, marginTop: 2 }}>{s.date}</div>
-              {s.notes && <div style={{ fontSize: 11, color: G.gold, marginTop: 4, fontStyle: "italic" }}>"{s.notes}"</div>}
-            </div>
-            <Badge color={G.green}>Done</Badge>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ClientApp({ user, onLogout }) {
-  const [tab, setTab] = useState("home");
-  const tabs = [
-    { id: "home", icon: "🏠", label: "Home" },
-    { id: "training", icon: "🏋️", label: "Training" },
-    { id: "nutrition", icon: "🥗", label: "Nutrition" },
-    { id: "messages", icon: "💬", label: "Coach" },
-    { id: "progress", icon: "📊", label: "Progress" },
-  ];
-  const screens = {
-    home: <ClientHome user={user} />,
-    training: <ClientTraining user={user} />,
-    nutrition: <ClientNutrition user={user} />,
-    messages: <ClientMessages user={user} />,
-    progress: <ClientProgress user={user} />,
-  };
-  return (
-    <AppShell user={user} onLogout={onLogout} tabs={tabs} activeTab={tab} setTab={setTab}>
-      {screens[tab]}
-    </AppShell>
-  );
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-// COACH APP
-// ═══════════════════════════════════════════════════════════════════════════
-
-function CoachDashboard({ user }) {
-  const [clients, setClients] = useState([]);
-  const [progs, setProgs] = useState([]);
-  const [allSessions, setAllSessions] = useState({});
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubClients = api.watchClients(user.id, setClients);
-    const unsubProgs = api.watchProgrammes(user.id, setProgs);
-    setLoading(false);
-    return () => { unsubClients(); unsubProgs(); };
-  }, [user.id]);
-
-  useEffect(() => {
-    // Load sessions for all clients
-    clients.forEach(c => {
-      api.getSessions(c.id).then(s => setAllSessions(prev => ({ ...prev, [c.id]: s })));
-    });
-  }, [clients]);
-
-  if (loading) return <Loading />;
-
-  const totalSessions = Object.values(allSessions).flat().filter(s => s.completed).length;
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle>DASHBOARD</SectionTitle>
-
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, padding: "0 20px 20px" }}>
-        {[
-          { v: clients.length, l: "Clients" },
-          { v: progs.length, l: "Programmes" },
-          { v: totalSessions, l: "Total Sessions" },
-          { v: clients.filter(c => (allSessions[c.id]||[]).some(s => {
-            const today = new Date().toISOString().split("T")[0];
-            return s.date === today;
-          })).length, l: "Active Today" },
-        ].map(s => (
-          <Card key={s.l}>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: 38, color: G.gold, lineHeight: 1 }}>{s.v}</div>
-            <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: "uppercase",
-              color: G.dim, fontWeight: 700, marginTop: 2 }}>{s.l}</div>
-          </Card>
-        ))}
-      </div>
-
-      <SectionTitle>RECENT ACTIVITY</SectionTitle>
-      <div style={{ padding: "0 20px" }}>
-        {clients.length === 0 ? (
-          <EmptyState icon="👥" title="No clients yet" desc="Share your app URL with clients to get started." />
-        ) : (
-          <Card>
-            {clients.slice(0, 5).map((c, i) => {
-              const sessions = allSessions[c.id] || [];
-              const last = [...sessions].sort((a,b)=>(b.date||"").localeCompare(a.date||""))[0];
-              return (
-                <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 10,
-                  paddingBottom: 10, marginBottom: 10, borderBottom: i < clients.slice(0,5).length - 1 ? `1px solid ${G.b5}` : "none" }}>
-                  <Avatar initials={c.avatar} size={36} />
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, fontSize: 13 }}>{c.name}</div>
-                    <div style={{ fontSize: 11, color: G.dim }}>
-                      {last ? `Last session: ${last.date} — ${last.workoutName || "complete"}` : "No sessions yet"}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </Card>
-        )}
-      </div>
-
-      <div style={{ padding: "20px" }}>
-        <Card>
-          <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 10 }}>SHARE YOUR APP</div>
-          <div style={{ fontSize: 13, color: G.dim, lineHeight: 1.6, marginBottom: 12 }}>
-            Send clients your app URL. They'll sign up, then appear here automatically.
-          </div>
-          <div style={{ background: G.b4, padding: 12, borderRadius: 10, fontSize: 12,
-            color: G.gold, fontFamily: "monospace", wordBreak: "break-all" }}>
-            {window.location.href.split("#")[0].split("?")[0]}
-          </div>
-        </Card>
-      </div>
-    </div>
-  );
-}
-
-function CoachClients({ user }) {
-  const [clients, setClients] = useState([]);
-  const [selected, setSelected] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsub = api.watchClients(user.id, c => { setClients(c); setLoading(false); });
-    return unsub;
-  }, [user.id]);
-
-  if (loading) return <Loading />;
-
-  if (selected) {
-    return <CoachClientDetail user={user} client={selected} onBack={() => setSelected(null)} />;
-  }
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle>ALL CLIENTS</SectionTitle>
-      <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 10 }}>
-        {clients.length === 0 ? (
-          <EmptyState icon="👥" title="No clients yet" desc="Clients will appear when they sign up." />
-        ) : clients.map(c => (
-          <Card key={c.id} onClick={() => setSelected(c)}
-            style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <Avatar initials={c.avatar} size={46} />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 800, fontSize: 14 }}>{c.name}</div>
-              <div style={{ fontSize: 11, color: G.dim, marginTop: 2 }}>{c.email}</div>
-            </div>
-            <span style={{ color: G.dim, fontSize: 18 }}>›</span>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function CoachClientDetail({ user, client, onBack }) {
-  const [tab, setTab] = useState("overview");
-  const [sessions, setSessions] = useState([]);
-  const [progs, setProgs] = useState([]);
-  const [allProgs, setAllProgs] = useState([]);
-  const [nutrTargets, setNutrTargets] = useState(null);
-  const [meals, setMeals] = useState([]);
-  const [measurements, setMeasurements] = useState([]);
-  const [msgs, setMsgs] = useState([]);
-  const [chatText, setChatText] = useState("");
-  const [showAssign, setShowAssign] = useState(false);
-  const [editTargets, setEditTargets] = useState(false);
-  const [targetForm, setTargetForm] = useState({});
-
-  useEffect(() => {
-    const unsubSess = api.watchSessions(client.id, setSessions);
-    const unsubMsgs = api.watchConversation(user.id, client.id, setMsgs);
-    const unsubMeals = api.watchTodayMeals(client.id, setMeals);
-    api.getClientProgrammes(client.id).then(setProgs);
-    api.getProgrammes(user.id).then(setAllProgs);
-    api.getNutritionTargets(client.id).then(t => { setNutrTargets(t); setTargetForm(t); });
-    api.getMeasurements(client.id).then(setMeasurements);
-    return () => { unsubSess(); unsubMsgs(); unsubMeals(); };
-  }, [client.id, user.id]);
-
-  const sendMsg = async () => {
-    if (!chatText.trim()) return;
-    await api.sendMessage(user.id, client.id, chatText.trim());
-    setChatText("");
-  };
-
-  const assignProg = async (progId) => {
-    await api.assignProgramme(progId, client.id);
-    const updated = await api.getClientProgrammes(client.id);
-    setProgs(updated);
-    setShowAssign(false);
-  };
-
-  const unassignProg = async (progId) => {
-    if (!confirm("Remove this programme from client?")) return;
-    await api.unassignProgramme(progId, client.id);
-    const updated = await api.getClientProgrammes(client.id);
-    setProgs(updated);
-  };
-
-  const saveTargets = async () => {
-    await api.setNutritionTargets(client.id, {
-      calories: +targetForm.calories, protein: +targetForm.protein,
-      carbs: +targetForm.carbs, fat: +targetForm.fat,
-    });
-    setNutrTargets(targetForm);
-    setEditTargets(false);
-  };
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <div style={{ padding: "14px 20px", background: G.b2, borderBottom: `1px solid ${G.border}`,
-        display: "flex", alignItems: "center", gap: 12 }}>
-        <button onClick={onBack} style={{ fontSize: 20, color: G.dim }}>←</button>
-        <Avatar initials={client.avatar} size={38} />
-        <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 800, fontSize: 14 }}>{client.name}</div>
-          <div style={{ fontSize: 11, color: G.dim }}>{client.email}</div>
-        </div>
-      </div>
-
-      <div style={{ display: "flex", background: G.b4, margin: "12px 20px",
-        borderRadius: 10, padding: 3, gap: 3, overflowX: "auto" }}>
-        {["overview","training","nutrition","progress","chat"].map(t => (
-          <button key={t} onClick={() => setTab(t)}
-            style={{ flex: 1, minWidth: 70, padding: "8px 4px", borderRadius: 8, fontSize: 10,
-              fontWeight: 800, letterSpacing: 1, textTransform: "uppercase",
-              background: tab === t ? G.gold : "transparent",
-              color: tab === t ? G.black : G.dim }}>
-            {t}
-          </button>
-        ))}
-      </div>
-
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 20px 20px" }}>
-
-        {tab === "overview" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <Card>
-              <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 10 }}>STATS</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                {[
-                  { v: sessions.filter(s=>s.completed).length, l: "Sessions" },
-                  { v: progs.length, l: "Programmes" },
-                  { v: measurements.length, l: "Logs" },
-                ].map(s => (
-                  <div key={s.l} style={{ textAlign: "center", padding: "10px 6px",
-                    background: G.b4, borderRadius: 10 }}>
-                    <div style={{ fontFamily: "'Bebas Neue'", fontSize: 26, color: G.gold }}>{s.v}</div>
-                    <div style={{ fontSize: 9, letterSpacing: 1, color: G.dim, textTransform: "uppercase", fontWeight: 700 }}>{s.l}</div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-            <Card>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2 }}>PROGRAMMES</div>
-                <button onClick={() => setShowAssign(true)} style={{ fontSize: 11, color: G.gold, fontWeight: 700 }}>+ Assign</button>
-              </div>
-              {progs.length === 0 ? (
-                <div style={{ color: G.dim, fontSize: 12 }}>No programmes assigned.</div>
-              ) : progs.map(p => (
-                <div key={p.id} style={{ display: "flex", alignItems: "center", gap: 10,
-                  marginBottom: 8, padding: 10, background: G.b4, borderRadius: 10 }}>
-                  <span style={{ fontSize: 22 }}>{p.emoji}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, fontSize: 13 }}>{p.name}</div>
-                    <div style={{ fontSize: 11, color: G.dim }}>{p.weeks} weeks</div>
-                  </div>
-                  <button onClick={() => unassignProg(p.id)} style={{ fontSize: 11, color: G.red }}>Remove</button>
-                </div>
-              ))}
-            </Card>
-            {sessions.filter(s=>s.completed).length > 0 && (
-              <Card>
-                <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 10 }}>RECENT SESSIONS</div>
-                {[...sessions].sort((a,b)=>(b.date||"").localeCompare(a.date||"")).slice(0,5).map(s => (
-                  <div key={s.id} style={{ borderBottom: `1px solid ${G.b5}`, paddingBottom: 10, marginBottom: 10 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
-                      <span style={{ fontWeight: 700, fontSize: 12 }}>{s.workoutName}</span>
-                      <Badge color={G.green}>{s.date}</Badge>
-                    </div>
-                    {s.notes && <div style={{ fontSize: 11, color: G.gold, fontStyle: "italic" }}>"{s.notes}"</div>}
-                    {Object.keys(s.logs || {}).length > 0 && (
-                      <div style={{ marginTop: 6 }}>
-                        {Object.entries(s.logs).map(([k,v]) => v && (
-                          <div key={k} style={{ fontSize: 11, color: G.dim }}>{k}: <span style={{ color: G.white }}>{v}</span></div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </Card>
-            )}
-          </div>
-        )}
-
-        {tab === "training" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {progs.length === 0 ? (
-              <EmptyState icon="📋" title="No programmes" desc="Use Assign from the Overview tab." />
-            ) : progs.map(prog => (
-              <Card key={prog.id}>
-                <div style={{ display: "flex", gap: 10, marginBottom: 12, alignItems: "center" }}>
-                  <span style={{ fontSize: 28 }}>{prog.emoji}</span>
-                  <div>
-                    <div style={{ fontWeight: 800, fontSize: 14 }}>{prog.name}</div>
-                    <div style={{ fontSize: 11, color: G.dim }}>{prog.weeks} weeks · {(prog.workouts||[]).length} workouts</div>
-                  </div>
-                </div>
-                {(prog.workouts||[]).map(w => {
-                  const done = sessions.find(s => s.workoutId === w.id && s.completed);
-                  return (
-                    <div key={w.id} style={{ display: "flex", alignItems: "center", gap: 10,
-                      padding: "10px 0", borderTop: `1px solid ${G.b5}` }}>
-                      <div style={{ width: 26, height: 26, borderRadius: "50%",
-                        background: done ? `${G.gold}20` : G.b5,
-                        border: `2px solid ${done ? G.gold : G.b5}`,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 12, flexShrink: 0 }}>{done ? "✓" : "○"}</div>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: 12, fontWeight: 700 }}>W{w.week}D{w.day} — {w.name}</div>
-                        {done?.notes && <div style={{ fontSize: 11, color: G.gold }}>"{done.notes}"</div>}
-                      </div>
-                      {done ? <Badge color={G.green}>Done</Badge> : <Badge color={G.dim}>Pending</Badge>}
-                    </div>
-                  );
-                })}
-              </Card>
-            ))}
-          </div>
-        )}
-
-        {tab === "nutrition" && nutrTargets && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <Card>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-                <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2 }}>DAILY TARGETS</div>
-                <button onClick={() => setEditTargets(!editTargets)} style={{ fontSize: 11, color: G.gold, fontWeight: 700 }}>
-                  {editTargets ? "Cancel" : "Edit"}
-                </button>
-              </div>
-              {editTargets ? (
-                <>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                    <Input label="Calories" type="number" value={targetForm.calories || ""} onChange={v => setTargetForm(p=>({...p,calories:v}))} />
-                    <Input label="Protein (g)" type="number" value={targetForm.protein || ""} onChange={v => setTargetForm(p=>({...p,protein:v}))} />
-                    <Input label="Carbs (g)" type="number" value={targetForm.carbs || ""} onChange={v => setTargetForm(p=>({...p,carbs:v}))} />
-                    <Input label="Fat (g)" type="number" value={targetForm.fat || ""} onChange={v => setTargetForm(p=>({...p,fat:v}))} />
-                  </div>
-                  <GoldBtn onClick={saveTargets} sm style={{ width: "100%", marginTop: 4 }}>Save Targets</GoldBtn>
-                </>
-              ) : (
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                  {Object.entries(nutrTargets).map(([k,v]) => (
-                    <div key={k} style={{ background: G.b4, borderRadius: 10, padding: "10px 12px" }}>
-                      <div style={{ fontFamily: "'Bebas Neue'", fontSize: 24, color: G.gold }}>{v}</div>
-                      <div style={{ fontSize: 10, color: G.dim, textTransform: "uppercase", letterSpacing: 1, fontWeight: 700 }}>{k}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </Card>
-            <Card>
-              <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 10 }}>TODAY'S MEALS</div>
-              {meals.length === 0 ? (
-                <div style={{ color: G.dim, fontSize: 12 }}>Client hasn't logged meals today.</div>
-              ) : meals.map(m => (
-                <div key={m.id} style={{ display: "flex", justifyContent: "space-between",
-                  padding: "10px 0", borderBottom: `1px solid ${G.b5}` }}>
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: 13 }}>{m.name}</div>
-                    <div style={{ fontSize: 11, color: G.dim }}>{m.items}</div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontFamily: "'Bebas Neue'", fontSize: 20, color: G.gold }}>{m.calories}</div>
-                    <div style={{ fontSize: 10, color: G.dim }}>P:{m.protein} C:{m.carbs} F:{m.fat}</div>
-                  </div>
-                </div>
-              ))}
-            </Card>
-          </div>
-        )}
-
-        {tab === "progress" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <Card>
-              <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 12 }}>WEIGHT HISTORY</div>
-              {measurements.length < 2 ? (
-                <div style={{ color: G.dim, fontSize: 12 }}>Not enough data yet.</div>
-              ) : (() => {
-                const wts = measurements.map(x=>x.weight);
-                const max = Math.max(...wts), min = Math.min(...wts);
-                const rng = max - min || 1;
-                return (
-                  <svg width="100%" height="110" viewBox={`0 0 ${Math.max(measurements.length*50,200)} 110`} preserveAspectRatio="none">
-                    {measurements.map((p, i) => {
-                      const x = (i/Math.max(measurements.length-1,1))*100;
-                      const y = 90 - ((p.weight-min)/rng)*75;
-                      return (
-                        <g key={i}>
-                          {i > 0 && (() => {
-                            const prev = measurements[i-1];
-                            const px = ((i-1)/Math.max(measurements.length-1,1))*100;
-                            const py = 90 - ((prev.weight-min)/rng)*75;
-                            return <line x1={`${px}%`} y1={py} x2={`${x}%`} y2={y} stroke={G.gold} strokeWidth={2}/>;
-                          })()}
-                          <circle cx={`${x}%`} cy={y} r={4} fill={G.gold}/>
-                          <text x={`${x}%`} y={y-8} textAnchor="middle" fill={G.goldL} fontSize={10}>{p.weight}</text>
-                          <text x={`${x}%`} y={105} textAnchor="middle" fill={G.dim} fontSize={8}>{p.date.slice(5)}</text>
-                        </g>
-                      );
-                    })}
-                  </svg>
-                );
-              })()}
-            </Card>
-            <Card>
-              <div style={{ fontFamily: "'Bebas Neue'", fontSize: 17, letterSpacing: 2, marginBottom: 10 }}>MEASUREMENTS</div>
-              {measurements.length === 0 ? (
-                <div style={{ color: G.dim, fontSize: 12 }}>No measurements logged.</div>
-              ) : [...measurements].reverse().map(entry => (
-                <div key={entry.id} style={{ display: "flex", justifyContent: "space-between",
-                  padding: "8px 0", borderBottom: `1px solid ${G.b5}` }}>
-                  <span style={{ fontWeight: 700 }}>{entry.date}</span>
-                  <span style={{ color: G.gold }}>{entry.weight}kg {entry.bodyFat ? `· ${entry.bodyFat}% BF` : ""}</span>
-                </div>
-              ))}
-            </Card>
-          </div>
-        )}
-
-        {tab === "chat" && (
-          <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10, marginBottom: 10, minHeight: 300 }}>
-              {msgs.map(m => {
-                const isMe = m.from === user.id;
-                return (
-                  <div key={m.id} style={{ display: "flex", flexDirection: "column",
-                    alignItems: isMe ? "flex-end" : "flex-start" }}>
-                    <div style={{ maxWidth: "85%", padding: "10px 14px", borderRadius: 14,
-                      borderBottomRightRadius: isMe ? 4 : 14,
-                      borderBottomLeftRadius: isMe ? 14 : 4,
-                      background: isMe ? `linear-gradient(135deg, ${G.goldD}, ${G.gold})` : G.b4,
-                      border: isMe ? "none" : `1px solid ${G.b5}`,
-                      color: isMe ? G.black : G.white,
-                      fontWeight: isMe ? 600 : 400, fontSize: 13, lineHeight: 1.5 }}>
-                      {m.text}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div style={{ display: "flex", gap: 10 }}>
-              <input value={chatText} onChange={e => setChatText(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && sendMsg()}
-                placeholder={`Message ${client.name}…`}
-                style={{ flex: 1, background: G.b4, border: `1px solid ${G.b5}`,
-                  borderRadius: 22, padding: "11px 18px", fontSize: 13, color: G.white }} />
-              <button onClick={sendMsg} style={{ width: 42, height: 42, borderRadius: "50%",
-                background: `linear-gradient(135deg, ${G.goldD}, ${G.gold})`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 16, flexShrink: 0 }}>➤</button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {showAssign && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.85)", zIndex: 99,
-          display: "flex", alignItems: "flex-end" }}>
-          <div style={{ width: "100%", maxWidth: 430, margin: "0 auto",
-            background: G.b2, borderRadius: "18px 18px 0 0",
-            border: `1px solid ${G.border}`, padding: 24, maxHeight: "70vh", overflowY: "auto" }}>
-            <div style={{ fontFamily: "'Bebas Neue'", fontSize: 22, letterSpacing: 2, marginBottom: 16 }}>
-              ASSIGN PROGRAMME
-            </div>
-            {allProgs.length === 0 ? (
-              <div style={{ color: G.dim, textAlign: "center", padding: 20 }}>
-                No programmes yet. Create one in the Plans tab.
-              </div>
-            ) : allProgs.map(p => {
-              const assigned = (p.assignedTo || []).includes(client.id);
-              return (
-                <div key={p.id} onClick={() => !assigned && assignProg(p.id)}
-                  style={{ display: "flex", gap: 12, alignItems: "center", padding: "12px 0",
-                    borderBottom: `1px solid ${G.b5}`, cursor: assigned ? "default" : "pointer",
-                    opacity: assigned ? 0.5 : 1 }}>
-                  <span style={{ fontSize: 26 }}>{p.emoji}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 800 }}>{p.name}</div>
-                    <div style={{ fontSize: 12, color: G.dim }}>{p.weeks} weeks · {p.category}</div>
-                  </div>
-                  {assigned && <Badge>Assigned</Badge>}
-                </div>
-              );
-            })}
-            <button onClick={() => setShowAssign(false)} style={{ width: "100%", marginTop: 16,
-              padding: 14, borderRadius: 10, background: G.b4, fontWeight: 700, color: G.dim }}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function CoachProgrammes({ user }) {
-  const [progs, setProgs] = useState([]);
-  const [editing, setEditing] = useState(null);
-  const [showCreate, setShowCreate] = useState(false);
-
-  useEffect(() => {
-    const unsub = api.watchProgrammes(user.id, setProgs);
-    return unsub;
-  }, [user.id]);
-
-  if (editing) {
-    return <ProgrammeEditor user={user} programme={editing} onBack={() => setEditing(null)} />;
-  }
-
-  if (showCreate) {
-    return <ProgrammeEditor user={user} programme={null} onBack={() => setShowCreate(false)} />;
-  }
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle action="+ Create" onAction={() => setShowCreate(true)}>PROGRAMMES</SectionTitle>
-      <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 12 }}>
-        {progs.length === 0 ? (
-          <EmptyState icon="📋" title="No programmes yet" desc="Create your first training programme." />
-        ) : progs.map(p => (
-          <Card key={p.id} onClick={() => setEditing(p)}>
-            <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-              <span style={{ fontSize: 32 }}>{p.emoji}</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 800, fontSize: 14 }}>{p.name}</div>
-                <div style={{ fontSize: 11, color: G.dim, marginTop: 2 }}>
-                  {p.weeks} weeks · {p.category} · {(p.workouts || []).length} workouts
-                </div>
-                <div style={{ fontSize: 12, color: G.dim, marginTop: 4, lineHeight: 1.5 }}>{p.description}</div>
-                <div style={{ marginTop: 8, display: "flex", gap: 6, alignItems: "center" }}>
-                  <Badge>{(p.assignedTo || []).length} clients</Badge>
-                </div>
-              </div>
-              <span style={{ color: G.dim, fontSize: 18 }}>›</span>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProgrammeEditor({ user, programme, onBack }) {
-  const [name, setName] = useState(programme?.name || "");
-  const [emoji, setEmoji] = useState(programme?.emoji || "🏋️");
-  const [weeks, setWeeks] = useState(programme?.weeks || 8);
-  const [category, setCategory] = useState(programme?.category || "Strength");
-  const [description, setDescription] = useState(programme?.description || "");
-  const [workouts, setWorkouts] = useState(programme?.workouts || []);
-  const [editingWk, setEditingWk] = useState(null);
-  const [saving, setSaving] = useState(false);
-
-  const save = async () => {
-    if (!name) return alert("Enter a name");
-    setSaving(true);
-    try {
-      if (programme) {
-        await api.updateProgramme(programme.id, { name, emoji, weeks: +weeks, category, description, workouts });
-      } else {
-        await api.createProgramme({ name, emoji, weeks: +weeks, category, description, workouts, coachId: user.id });
-      }
-      onBack();
-    } catch (e) { alert(e.message); }
-    setSaving(false);
-  };
-
-  const addWorkout = () => {
-    const newWk = {
-      id: `w${Date.now()}`, week: 1, day: (workouts.length + 1),
-      name: "New Workout", duration: 45, exercises: [],
-    };
-    setEditingWk(newWk);
-  };
-
-  const saveWorkout = (wk) => {
-    const existing = workouts.findIndex(w => w.id === wk.id);
-    if (existing >= 0) {
-      const updated = [...workouts];
-      updated[existing] = wk;
-      setWorkouts(updated);
-    } else {
-      setWorkouts([...workouts, wk]);
-    }
-    setEditingWk(null);
-  };
-
-  const deleteWorkout = (id) => {
-    if (!confirm("Delete this workout?")) return;
-    setWorkouts(workouts.filter(w => w.id !== id));
-  };
-
-  if (editingWk) {
-    return <WorkoutEditor workout={editingWk} onSave={saveWorkout} onCancel={() => setEditingWk(null)}
-      onDelete={() => { deleteWorkout(editingWk.id); setEditingWk(null); }} />;
-  }
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <div style={{ padding: "14px 20px", background: G.b2, borderBottom: `1px solid ${G.border}`,
-        display: "flex", alignItems: "center", gap: 12 }}>
-        <button onClick={onBack} style={{ fontSize: 20, color: G.dim }}>←</button>
-        <div style={{ fontFamily: "'Bebas Neue'", fontSize: 20, letterSpacing: 1.5, flex: 1 }}>
-          {programme ? "EDIT PROGRAMME" : "NEW PROGRAMME"}
-        </div>
-        <GoldBtn onClick={save} sm disabled={saving}>{saving ? "…" : "Save"}</GoldBtn>
-      </div>
-      <div style={{ padding: 20 }}>
-        <Input label="Name" value={name} onChange={setName} placeholder="Power Performance" />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-          <Input label="Emoji" value={emoji} onChange={setEmoji} />
-          <Input label="Duration (weeks)" type="number" value={weeks} onChange={setWeeks} />
-        </div>
-        <div style={{ marginBottom: 14 }}>
-          <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: G.dim, marginBottom: 6, fontWeight: 700 }}>Category</div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {["Strength","Cardio","Sport","Recovery"].map(c => (
-              <button key={c} onClick={() => setCategory(c)}
-                style={{ padding: "7px 14px", borderRadius: 20, fontSize: 11, fontWeight: 700,
-                  background: category === c ? G.gold : G.b4,
-                  color: category === c ? G.black : G.dim,
-                  border: `1px solid ${category === c ? G.gold : G.b5}` }}>{c}</button>
-            ))}
-          </div>
-        </div>
-        <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: G.dim, marginBottom: 6, fontWeight: 700 }}>Description</div>
-          <textarea value={description} onChange={e => setDescription(e.target.value)}
-            placeholder="Describe this programme…"
-            style={{ width: "100%", background: G.b4, border: `1px solid ${G.b5}`,
-              borderRadius: 10, padding: "12px 16px", fontSize: 13, color: G.white,
-              minHeight: 80, resize: "none", fontFamily: "'Barlow'" }} />
-        </div>
-
-        <SectionTitle action="+ Add Workout" onAction={addWorkout}>WORKOUTS ({workouts.length})</SectionTitle>
-        {workouts.length === 0 ? (
-          <div style={{ color: G.dim, textAlign: "center", padding: 20, fontSize: 13 }}>
-            No workouts yet. Tap + Add Workout to create one.
-          </div>
-        ) : workouts.map(w => (
-          <Card key={w.id} onClick={() => setEditingWk(w)} style={{ marginBottom: 10 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, fontSize: 13 }}>W{w.week}D{w.day} — {w.name}</div>
-                <div style={{ fontSize: 11, color: G.dim, marginTop: 2 }}>
-                  {w.duration} min · {w.exercises.length} exercises
-                </div>
-              </div>
-              <span style={{ color: G.dim, fontSize: 18 }}>›</span>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function WorkoutEditor({ workout, onSave, onCancel, onDelete }) {
-  const [wk, setWk] = useState({ ...workout });
-
-  const updateEx = (i, field, val) => {
-    const ex = [...wk.exercises];
-    ex[i] = { ...ex[i], [field]: val };
-    setWk({ ...wk, exercises: ex });
-  };
-
-  const addEx = () => setWk({ ...wk, exercises: [...wk.exercises, { name: "", sets: 3, reps: "10", rest: "90s", notes: "" }] });
-  const removeEx = (i) => setWk({ ...wk, exercises: wk.exercises.filter((_,j) => j !== i) });
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <div style={{ padding: "14px 20px", background: G.b2, borderBottom: `1px solid ${G.border}`,
-        display: "flex", alignItems: "center", gap: 12 }}>
-        <button onClick={onCancel} style={{ fontSize: 20, color: G.dim }}>←</button>
-        <div style={{ fontFamily: "'Bebas Neue'", fontSize: 20, letterSpacing: 1.5, flex: 1 }}>EDIT WORKOUT</div>
-        <GoldBtn onClick={() => onSave(wk)} sm>Save</GoldBtn>
-      </div>
-      <div style={{ padding: 20 }}>
-        <Input label="Workout name" value={wk.name} onChange={v => setWk(p=>({...p,name:v}))} placeholder="Power Strength A" />
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10 }}>
-          <Input label="Week" type="number" value={wk.week} onChange={v => setWk(p=>({...p,week:+v}))} />
-          <Input label="Day" type="number" value={wk.day} onChange={v => setWk(p=>({...p,day:+v}))} />
-          <Input label="Duration (min)" type="number" value={wk.duration} onChange={v => setWk(p=>({...p,duration:+v}))} />
-        </div>
-
-        <SectionTitle action="+ Exercise" onAction={addEx}>EXERCISES</SectionTitle>
-        {wk.exercises.map((ex, i) => (
-          <Card key={i} style={{ marginBottom: 10 }}>
-            <Input label={`Exercise ${i+1} name`} value={ex.name} onChange={v => updateEx(i,"name",v)} placeholder="Back Squat" />
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-              <Input label="Sets" type="number" value={ex.sets} onChange={v => updateEx(i,"sets",+v)} />
-              <Input label="Reps" value={ex.reps} onChange={v => updateEx(i,"reps",v)} placeholder="6" />
-              <Input label="Rest" value={ex.rest} onChange={v => updateEx(i,"rest",v)} placeholder="2 min" />
-            </div>
-            <Input label="Coach notes" value={ex.notes} onChange={v => updateEx(i,"notes",v)} placeholder="Build to 85% 1RM" />
-            <button onClick={() => removeEx(i)} style={{ fontSize: 11, color: G.red, fontWeight: 700 }}>Remove exercise</button>
-          </Card>
-        ))}
-
-        <button onClick={onDelete} style={{ width: "100%", marginTop: 20, padding: 12,
-          borderRadius: 10, border: `1px solid ${G.red}40`, color: G.red, fontWeight: 700, fontSize: 12 }}>
-          Delete Workout
+    <div style={{flex:1,overflowY:'auto',WebkitOverflowScrolling:'touch'}}>{children}</div>
+    <div style={{height:72,background:G.s1,borderTop:`1px solid ${G.s3}`,display:'flex',alignItems:'center',paddingBottom:6,flexShrink:0}}>
+      {tabs.map(t=>(
+        <button key={t.id} onClick={()=>setTab(t.id)} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:4,padding:'7px 0'}}>
+          <span style={{fontSize:18,transition:'transform .2s',transform:active===t.id?'translateY(-2px)':'none',filter:active===t.id?`drop-shadow(0 0 5px ${G.gold})`:'none'}}>{t.icon}</span>
+          <span style={{fontSize:9,letterSpacing:1.5,textTransform:'uppercase',fontWeight:700,color:active===t.id?G.gold:G.w40}}>{t.label}</span>
         </button>
-      </div>
+      ))}
     </div>
-  );
-}
+  </div>
+);
 
-function CoachMessages({ user }) {
-  const [clients, setClients] = useState([]);
-  const [selected, setSelected] = useState(null);
-  const [msgs, setMsgs] = useState([]);
-  const [text, setText] = useState("");
+/* ── EXERCISE CARD ────────────────────────────────────────── */
+const ExCard=({ex,onSelect})=>(
 
-  useEffect(() => {
-    const unsub = api.watchClients(user.id, setClients);
-    return unsub;
-  }, [user.id]);
-
-  useEffect(() => {
-    if (!selected) return;
-    const unsub = api.watchConversation(user.id, selected.id, setMsgs);
-    return unsub;
-  }, [selected, user.id]);
-
-  const sendMsg = async () => {
-    if (!text.trim() || !selected) return;
-    await api.sendMessage(user.id, selected.id, text.trim());
-    setText("");
-  };
-
-  if (selected) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <div style={{ padding: "14px 20px", background: G.b2, borderBottom: `1px solid ${G.border}`,
-          display: "flex", alignItems: "center", gap: 12 }}>
-          <button onClick={() => setSelected(null)} style={{ fontSize: 20, color: G.dim }}>←</button>
-          <Avatar initials={selected.avatar} size={34} />
-          <div style={{ fontWeight: 800, fontSize: 14 }}>{selected.name}</div>
-        </div>
-        <div style={{ flex: 1, overflowY: "auto", padding: "14px 20px", display: "flex",
-          flexDirection: "column", gap: 10 }}>
-          {msgs.length === 0 ? (
-            <div style={{ color: G.dim, textAlign: "center", padding: 30, fontSize: 13 }}>
-              No messages yet.
-            </div>
-          ) : msgs.map(m => {
-            const isMe = m.from === user.id;
-            return (
-              <div key={m.id} style={{ display: "flex", flexDirection: "column",
-                alignItems: isMe ? "flex-end" : "flex-start" }}>
-                <div style={{ maxWidth: "82%", padding: "10px 14px", borderRadius: 14,
-                  borderBottomRightRadius: isMe ? 4 : 14, borderBottomLeftRadius: isMe ? 14 : 4,
-                  background: isMe ? `linear-gradient(135deg,${G.goldD},${G.gold})` : G.b4,
-                  border: isMe ? "none" : `1px solid ${G.b5}`,
-                  color: isMe ? G.black : G.white, fontWeight: isMe ? 600 : 400, fontSize: 13, lineHeight: 1.5 }}>
-                  {m.text}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ display: "flex", gap: 10, padding: "10px 20px",
-          borderTop: `1px solid ${G.b5}` }}>
-          <input value={text} onChange={e => setText(e.target.value)}
-            onKeyDown={e => e.key === "Enter" && sendMsg()}
-            placeholder={`Message ${selected.name}…`}
-            style={{ flex: 1, background: G.b4, border: `1px solid ${G.b5}`,
-              borderRadius: 22, padding: "11px 18px", fontSize: 13, color: G.white }} />
-          <button onClick={sendMsg} style={{ width: 42, height: 42, borderRadius: "50%",
-            background: `linear-gradient(135deg,${G.goldD},${G.gold})`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 16, flexShrink: 0 }}>➤</button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ paddingBottom: 20 }}>
-      <SectionTitle>MESSAGES</SectionTitle>
-      <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 10 }}>
-        {clients.length === 0 ? (
-          <EmptyState icon="💬" title="No clients yet" desc="Clients will appear here when they sign up." />
-        ) : clients.map(c => (
-          <Card key={c.id} onClick={() => setSelected(c)}
-            style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <Avatar initials={c.avatar} size={44} />
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 800, fontSize: 14 }}>{c.name}</div>
-              <div style={{ fontSize: 12, color: G.dim, marginTop: 2 }}>{c.email}</div>
-            </div>
-            <span style={{ color: G.dim, fontSize: 18 }}>›</span>
-          </Card>
-        ))}
-      </div>
+  <div onClick={()=>onSelect&&onSelect(ex)} style={{background:G.s2,border:`1px solid ${G.s3}`,borderRadius:12,padding:'12px 13px',cursor:onSelect?'pointer':'default',display:'flex',alignItems:'center',gap:11}}>
+    <div style={{width:40,height:40,borderRadius:10,background:G.s3,display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}}>{ex.emoji}</div>
+    <div style={{flex:1,minWidth:0}}>
+      <div style={{fontWeight:700,fontSize:13,marginBottom:3}}>{ex.name}</div>
+      <div style={{display:'flex',gap:5}}><Pill sx={{fontSize:8}}>{ex.primary}</Pill><Pill c={G.w40} sx={{fontSize:8}}>{ex.equipment}</Pill></div>
     </div>
-  );
+    {onSelect&&<span style={{color:G.w40,fontSize:16}}>›</span>}
+  </div>
+);
+
+/* ── EXERCISE DETAIL ──────────────────────────────────────── */
+const ExDetail=({ex,onBack,onAdd})=>(
+
+  <div>
+    <div style={{padding:'13px 20px',background:G.s1,borderBottom:`1px solid ${G.s3}`,display:'flex',alignItems:'center',gap:12}}>
+      <button onClick={onBack} style={{fontSize:22,color:G.w40,padding:'0 4px'}}>‹</button>
+      <div style={{flex:1,fontWeight:700,fontSize:16}}>{ex.name}</div>
+      {onAdd&&<Btn sm onClick={onAdd}>Add Exercise</Btn>}
+    </div>
+    <div style={{padding:20}}>
+      <Card sx={{marginBottom:14}}>
+        <div style={{padding:20,display:'flex',flexDirection:'column',alignItems:'center',gap:12}}>
+          <MuscleMap muscles={ex.muscles} size={130}/>
+          <div style={{display:'flex',gap:6,flexWrap:'wrap',justifyContent:'center'}}>
+            <Pill>{ex.primary}</Pill>
+            {ex.secondary&&ex.secondary.split(' · ').map(m=><Pill key={m} c={G.w40}>{m}</Pill>)}
+          </div>
+        </div>
+      </Card>
+      <Card sx={{marginBottom:14}}><div style={{padding:14}}><div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:'uppercase',marginBottom:7,fontWeight:700}}>Equipment · Category</div><div style={{fontWeight:600,fontSize:14}}>{ex.equipment} · {ex.cat}</div></div></Card>
+      <Card><div style={{padding:14}}><div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:'uppercase',marginBottom:7,fontWeight:700}}>Instructions</div><div style={{color:G.w70,fontSize:13,lineHeight:1.7}}>{ex.desc}</div></div></Card>
+    </div>
+  </div>
+);
+
+/* ── ACTIVE WORKOUT (Hevy-style set table + rest timer) ───── */
+const ActiveWorkout=({workout,prog,prevSessions,clientId,onDone,onCancel})=>{
+const[sets,setSets]=useState(()=>(workout.exercises||[]).map(ex=>({exName:ex.name||ex,rows:Array.from({length:ex.sets||3},(_,i)=>({id:i,kg:’’,reps:’’,done:false}))})));
+const[note,setNote]=useState(’’);
+const[elapsed,setElapsed]=useState(0);
+const[rest,setRest]=useState(null);
+const[saving,setSaving]=useState(false);
+const[fin,setFin]=useState(false);
+useEffect(()=>{const t=setInterval(()=>setElapsed(e=>e+1),1000);return()=>clearInterval(t);},[]);
+useEffect(()=>{if(rest===null||rest<=0){if(rest===0)setRest(null);return;}const t=setTimeout(()=>setRest(r=>r-1),1000);return()=>clearTimeout(t);},[rest]);
+const fmt=s=>`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`;
+const updRow=(ei,ri,f,v)=>setSets(p=>p.map((s,i)=>i!==ei?s:{…s,rows:s.rows.map((r,j)=>j!==ri?r:{…r,[f]:v})}));
+const toggleDone=(ei,ri)=>setSets(p=>{const n=p.map((s,i)=>i!==ei?s:{…s,rows:s.rows.map((r,j)=>j!==ri?r:{…r,done:!r.done})});if(!p[ei].rows[ri].done)setRest(90);return n;});
+const addRow=ei=>setSets(p=>p.map((s,i)=>i!==ei?s:{…s,rows:[…s.rows,{id:s.rows.length,kg:’’,reps:’’,done:false}]}));
+const totalDone=sets.reduce((a,s)=>a+s.rows.filter(r=>r.done).length,0);
+const totalSets=sets.reduce((a,s)=>a+s.rows.length,0);
+const getPrev=ex=>{for(const s of[…prevSessions].reverse()){if(s.logs&&s.logs[ex])return s.logs[ex];}return null;};
+const finish=async()=>{
+setSaving(true);
+const logs={};
+sets.forEach(s=>{logs[s.exName]=s.rows.filter(r=>r.done).map(r=>`${r.kg||'?'}kg×${r.reps||'?'}`).join(’, ’);});
+try{await api.logSession({clientId,workoutId:workout.id||`w${Date.now()}`,progId:prog.id,workoutName:workout.name,date:new Date().toISOString().split(‘T’)[0],completed:true,notes:note,logs,duration:elapsed});setFin(true);setTimeout(onDone,1800);}
+catch(e){alert(e.message);}
+setSaving(false);
+};
+if(fin)return(
+<div style={{height:‘100%’,display:‘flex’,flexDirection:‘column’,alignItems:‘center’,justifyContent:‘center’,gap:14,padding:40,textAlign:‘center’}}>
+<div style={{fontSize:56}}>🏆</div>
+<div style={{fontFamily:”‘Bebas Neue’”,fontSize:30,letterSpacing:2,color:G.gold}}>SESSION COMPLETE!</div>
+<div style={{color:G.w70,fontSize:13}}>{totalDone} sets · {fmt(elapsed)}</div>
+</div>
+);
+return(
+<div style={{display:‘flex’,flexDirection:‘column’,height:‘100%’}}>
+{/* header */}
+<div style={{background:G.s1,borderBottom:`1px solid ${G.s3}`,padding:‘13px 20px’,flexShrink:0}}>
+<div style={{display:‘flex’,alignItems:‘center’,gap:10,marginBottom:8}}>
+<button onClick={onCancel} style={{color:G.w40,fontSize:12,fontWeight:700,letterSpacing:1}}>✕ END</button>
+<div style={{flex:1,textAlign:‘center’,fontWeight:700,fontSize:14}}>{workout.name}</div>
+<div style={{fontFamily:”‘Bebas Neue’”,fontSize:20,color:G.gold,letterSpacing:1}}>{fmt(elapsed)}</div>
+</div>
+<div style={{height:3,background:G.s3,borderRadius:2,overflow:‘hidden’}}>
+<div style={{width:`${totalSets?totalDone/totalSets*100:0}%`,height:‘100%’,background:`linear-gradient(90deg,${G.goldD},${G.gold})`,transition:‘width .3s’}}/>
+</div>
+<div style={{fontSize:10,color:G.w40,marginTop:4,textAlign:‘center’,letterSpacing:1}}>{totalDone} of {totalSets} sets done</div>
+</div>
+{/* rest timer */}
+{rest!==null&&(
+<div style={{background:G.goldDim,borderBottom:`1px solid ${G.goldBorder}`,padding:‘9px 20px’,display:‘flex’,alignItems:‘center’,justifyContent:‘space-between’,flexShrink:0}}>
+<span style={{fontSize:11,fontWeight:700,color:G.gold,letterSpacing:1}}>⏱ REST</span>
+<span style={{fontFamily:”‘Bebas Neue’”,fontSize:24,color:G.gold,letterSpacing:2}}>{fmt(rest)}</span>
+<button onClick={()=>setRest(null)} style={{fontSize:11,color:G.w70,fontWeight:700,background:G.s3,padding:‘5px 10px’,borderRadius:6}}>Skip</button>
+</div>
+)}
+{/* sets */}
+<div style={{flex:1,overflowY:‘auto’,paddingBottom:20}}>
+{sets.map((s,ei)=>{
+const prev=getPrev(s.exName);
+const exData=EX.find(e=>e.name===s.exName)||{emoji:‘💪’};
+return(
+<div key={ei} style={{borderBottom:`1px solid ${G.s2}`}}>
+<div style={{padding:‘13px 20px 6px’,display:‘flex’,alignItems:‘center’,gap:10}}>
+<div style={{width:32,height:32,borderRadius:8,background:G.s3,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:15,flexShrink:0}}>{exData.emoji}</div>
+<div><div style={{fontWeight:700,fontSize:13,color:G.gold}}>{s.exName}</div>{prev&&<div style={{fontSize:10,color:G.w40}}>Last: {prev}</div>}</div>
+</div>
+{/* col headers */}
+<div style={{display:‘grid’,gridTemplateColumns:‘28px 1fr 72px 72px 32px’,gap:5,padding:‘3px 20px’}}>
+<div style={{fontSize:9,color:G.w40,fontWeight:700,textAlign:‘center’,letterSpacing:1}}>SET</div>
+<div style={{fontSize:9,color:G.w40,fontWeight:700,letterSpacing:1}}>PREVIOUS</div>
+<div style={{fontSize:9,color:G.w40,fontWeight:700,textAlign:‘center’,letterSpacing:1}}>KG</div>
+<div style={{fontSize:9,color:G.w40,fontWeight:700,textAlign:‘center’,letterSpacing:1}}>REPS</div>
+<div/>
+</div>
+{s.rows.map((row,ri)=>(
+<div key={ri} style={{display:‘grid’,gridTemplateColumns:‘28px 1fr 72px 72px 32px’,gap:5,padding:‘4px 20px’,alignItems:‘center’,background:row.done?‘rgba(34,197,94,.05)’:‘transparent’,transition:‘background .2s’}}>
+<div style={{width:20,height:20,borderRadius:‘50%’,background:row.done?G.goldDim:G.s3,border:`1.5px solid ${row.done?G.gold:G.s4}`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:9,fontWeight:700,color:row.done?G.gold:G.w40,margin:‘0 auto’}}>{ri+1}</div>
+<div style={{fontSize:10,color:G.w40,overflow:‘hidden’,textOverflow:‘ellipsis’,whiteSpace:‘nowrap’}}>{prev?.split(’,’)[ri]?.trim()||’—’}</div>
+<input value={row.kg} onChange={e=>updRow(ei,ri,‘kg’,e.target.value)} disabled={row.done} placeholder=“0” style={{background:row.done?‘transparent’:G.s3,border:`1.5px solid ${row.done?'transparent':G.s4}`,borderRadius:8,padding:‘7px 0’,fontSize:14,fontWeight:700,textAlign:‘center’,width:‘100%’,color:row.done?G.w40:G.white}}/>
+<input value={row.reps} onChange={e=>updRow(ei,ri,‘reps’,e.target.value)} disabled={row.done} placeholder=“0” style={{background:row.done?‘transparent’:G.s3,border:`1.5px solid ${row.done?'transparent':G.s4}`,borderRadius:8,padding:‘7px 0’,fontSize:14,fontWeight:700,textAlign:‘center’,width:‘100%’,color:row.done?G.w40:G.white}}/>
+<button onClick={()=>toggleDone(ei,ri)} style={{width:26,height:26,borderRadius:‘50%’,background:row.done?G.green:G.s3,border:`1.5px solid ${row.done?G.green:G.s4}`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:12,margin:‘0 auto’,transition:‘all .2s’}}>{row.done?‘✓’:’’}</button>
+</div>
+))}
+<button onClick={()=>addRow(ei)} style={{width:‘100%’,padding:‘9px 20px’,fontSize:11,fontWeight:700,color:G.gold,letterSpacing:1,textAlign:‘center’}}>+ ADD SET</button>
+</div>
+);
+})}
+<div style={{padding:‘13px 20px 4px’}}>
+<div style={{fontSize:10,letterSpacing:1.5,textTransform:‘uppercase’,color:G.w40,marginBottom:6,fontWeight:600}}>Workout Notes</div>
+<textarea value={note} onChange={e=>setNote(e.target.value)} placeholder=“How did it feel? Any PBs?” style={{width:‘100%’,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:10,padding:‘11px 13px’,fontSize:13,color:G.white,minHeight:64,resize:‘none’,fontFamily:‘var(–font)’}}/>
+</div>
+</div>
+<div style={{padding:‘11px 20px 5px’,borderTop:`1px solid ${G.s3}`,flexShrink:0}}>
+<Btn onClick={finish} disabled={saving} sx={{width:‘100%’}}>{saving?‘Saving…’:‘✓ Finish Workout’}</Btn>
+</div>
+</div>
+);
+};
+
+/* ── CLIENT HOME ──────────────────────────────────────────── */
+const CHome=({user})=>{
+const[progs,setProgs]=useState([]);
+const[sessions,setSessions]=useState([]);
+useEffect(()=>{api.getClientProgs(user.id).then(setProgs);const u=api.watchSessions(user.id,setSessions);return u;},[user.id]);
+const prog=progs[0],ws=prog?.workouts||[];
+const doneCnt=sessions.filter(s=>s.completed).length;
+const next=ws.find(w=>!sessions.find(s=>s.workoutId===w.id&&s.completed));
+const week=[‘M’,‘T’,‘W’,‘T’,‘F’,‘S’,‘S’],dn=new Date().getDay()||7;
+return(
+<div style={{paddingBottom:20}}>
+<div style={{padding:‘22px 20px 18px’,background:`linear-gradient(160deg,${G.s2},${G.bg})`,position:‘relative’,overflow:‘hidden’}}>
+<div style={{position:‘absolute’,top:-50,right:-30,width:160,height:160,background:‘radial-gradient(circle,rgba(201,168,76,.08),transparent 70%)’,pointerEvents:‘none’}}/>
+<div className=“fu” style={{fontSize:11,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:600}}>Good {new Date().getHours()<12?‘Morning’:‘Afternoon’},</div>
+<div className=“fu d1” style={{fontFamily:”‘Bebas Neue’”,fontSize:36,letterSpacing:2,lineHeight:1.1,marginBottom:10}}>{user.name.split(’ ‘)[0].toUpperCase()}</div>
+<div className=“fu d2” style={{display:‘flex’,gap:5}}>
+{week.map((d,i)=>{
+const isToday=i+1===dn;
+const hasSess=sessions.some(s=>{try{return new Date(s.date).getDay()===((i+1)%7);}catch{return false;}});
+return<div key={i} style={{width:32,height:32,borderRadius:7,background:hasSess?G.goldDim:G.s2,border:`1.5px solid ${isToday?G.gold:hasSess?G.goldBorder:G.s3}`,display:‘flex’,flexDirection:‘column’,alignItems:‘center’,justifyContent:‘center’,gap:1}}>
+<div style={{fontSize:8,color:isToday?G.gold:G.w40,fontWeight:700}}>{d}</div>
+{hasSess&&<div style={{width:4,height:4,borderRadius:‘50%’,background:G.gold}}/>}
+</div>;
+})}
+</div>
+</div>
+<div className=“fu d2” style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr 1fr’,gap:10,padding:‘13px 20px’}}>
+{[{v:doneCnt,l:‘Sessions’},{v:ws.length-doneCnt,l:‘Remaining’},{v:progs.length,l:‘Programmes’}].map(s=>(
+<Card key={s.l} sx={{padding:‘13px 10px’,textAlign:‘center’}}>
+<div style={{fontFamily:”‘Bebas Neue’”,fontSize:28,color:G.gold,lineHeight:1}}>{s.v}</div>
+<div style={{fontSize:9,color:G.w40,letterSpacing:1.2,textTransform:‘uppercase’,fontWeight:600,marginTop:3}}>{s.l}</div>
+</Card>
+))}
+</div>
+<SH>Today’s Workout</SH>
+{next?(
+<div className=“fu d3” style={{margin:‘0 20px 16px’,background:G.s2,border:`1px solid ${G.s3}`,borderRadius:14,overflow:‘hidden’,position:‘relative’}}>
+<div style={{position:‘absolute’,top:0,left:0,right:0,height:2,background:`linear-gradient(90deg,${G.goldD},${G.gold})`}}/>
+<div style={{padding:16}}>
+<div style={{fontSize:10,color:G.gold,letterSpacing:2,fontWeight:700,textTransform:‘uppercase’,marginBottom:7}}>⚡ {prog?.name} · W{next.week}D{next.day}</div>
+<div style={{fontWeight:800,fontSize:18,marginBottom:6}}>{next.name}</div>
+<div style={{display:‘flex’,gap:14,fontSize:11,color:G.w40,marginBottom:12}}>
+<span>⏱ {next.duration} min</span><span>🏋️ {next.exercises?.length||0} exercises</span>
+</div>
+<div style={{display:‘flex’,gap:5,flexWrap:‘wrap’,marginBottom:12}}>
+{(next.exercises||[]).slice(0,4).map((e,i)=><Pill key={i} sx={{fontSize:8}}>{e.name||e}</Pill>)}
+{(next.exercises||[]).length>4&&<Pill c={G.w40} sx={{fontSize:8}}>+{next.exercises.length-4} more</Pill>}
+</div>
+<div style={{fontSize:11,color:G.w70}}>Go to <strong style={{color:G.gold}}>Workout</strong> tab to start →</div>
+</div>
+</div>
+):(
+<div style={{margin:‘0 20px 16px’}}>
+<Card sx={{padding:26,textAlign:‘center’}}>
+<div style={{fontSize:32,marginBottom:8}}>{progs.length?‘✅’:‘📋’}</div>
+<div style={{fontWeight:700,fontSize:14}}>{progs.length?‘All sessions done!’:‘No programme yet’}</div>
+<div style={{fontSize:12,color:G.w40,marginTop:4}}>{progs.length?‘Rest up. Coach may update your plan.’:‘Message your coach to get started.’}</div>
+</Card>
+</div>
+)}
+{sessions.length>0&&<>
+<SH>Recent Sessions</SH>
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:7}}>
+{[…sessions].sort((a,b)=>(b.date||’’).localeCompare(a.date||’’)).slice(0,3).map(s=>(
+<Card key={s.id} sx={{padding:13,display:‘flex’,justifyContent:‘space-between’,alignItems:‘center’}}>
+<div><div style={{fontWeight:700,fontSize:13}}>{s.workoutName||‘Session’}</div><div style={{fontSize:11,color:G.w40,marginTop:2}}>{s.date}</div>{s.notes&&<div style={{fontSize:11,color:G.gold,marginTop:3,fontStyle:‘italic’}}>”{s.notes}”</div>}</div>
+<Pill c={G.green}>Done</Pill>
+</Card>
+))}
+</div>
+</>}
+</div>
+);
+};
+
+/* ── CLIENT WORKOUT ───────────────────────────────────────── */
+const CWorkout=({user})=>{
+const[progs,setProgs]=useState([]);
+const[sessions,setSessions]=useState([]);
+const[activeW,setActiveW]=useState(null);
+const[viewEx,setViewEx]=useState(null);
+const[exSearch,setExSearch]=useState(’’);
+const[tab,setTab]=useState(‘routines’);
+const[loading,setLoading]=useState(true);
+useEffect(()=>{Promise.all([api.getClientProgs(user.id),api.getSessions(user.id)]).then(([p,s])=>{setProgs(p);setSessions(s);setLoading(false);});const u=api.watchSessions(user.id,setSessions);return u;},[user.id]);
+if(activeW)return<ActiveWorkout workout={activeW.w} prog={activeW.prog} prevSessions={sessions} clientId={user.id} onCancel={()=>setActiveW(null)} onDone={()=>setActiveW(null)}/>;
+if(viewEx)return<ExDetail ex={viewEx} onBack={()=>setViewEx(null)}/>;
+const filtered=EX.filter(e=>!exSearch||e.name.toLowerCase().includes(exSearch.toLowerCase())||e.cat.toLowerCase().includes(exSearch.toLowerCase())||e.primary.toLowerCase().includes(exSearch.toLowerCase()));
+const cats=[…new Set(EX.map(e=>e.cat))];
+return(
+<div style={{paddingBottom:20}}>
+<div style={{padding:‘13px 20px 0’}}>
+<div style={{display:‘flex’,gap:3,background:G.s2,borderRadius:10,padding:3}}>
+{[[‘routines’,‘My Routines’],[‘library’,‘Exercise Library’]].map(([id,l])=>(
+<button key={id} onClick={()=>setTab(id)} style={{flex:1,padding:‘9px 0’,borderRadius:8,fontSize:11,fontWeight:700,letterSpacing:.5,background:tab===id?G.gold:‘transparent’,color:tab===id?G.bg:G.w40,transition:‘all .2s’}}>{l}</button>
+))}
+</div>
+</div>
+{tab===‘routines’&&<>
+{loading?<Loader/>:progs.length===0?<Empty icon="📋" title="No programmes assigned" sub="Your coach will assign you a training programme."/>:
+progs.map(prog=>{
+const ws=prog.workouts||[];
+const dc=sessions.filter(s=>s.progId===prog.id&&s.completed).length;
+return(
+<div key={prog.id} style={{padding:‘13px 20px 0’}}>
+<div style={{background:G.s1,border:`1px solid ${G.s3}`,borderRadius:14,overflow:‘hidden’}}>
+<div style={{padding:‘13px 15px’,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:11}}>
+<div style={{width:44,height:44,borderRadius:10,background:G.s3,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:22}}>{prog.emoji||‘🏋️’}</div>
+<div style={{flex:1}}><div style={{fontWeight:700,fontSize:14}}>{prog.name}</div><div style={{fontSize:11,color:G.w40,marginTop:2}}>{prog.weeks}w · {prog.category}</div></div>
+<div style={{textAlign:‘right’}}><div style={{fontFamily:”‘Bebas Neue’”,fontSize:22,color:G.gold,lineHeight:1}}>{Math.round(dc/Math.max(ws.length,1)*100)}%</div><div style={{fontSize:8,color:G.w40,letterSpacing:1}}>DONE</div></div>
+</div>
+{ws.length===0?<div style={{padding:18,textAlign:‘center’,color:G.w40,fontSize:12}}>No workouts yet — your coach will add them shortly.</div>:
+ws.map((w,i)=>{
+const isDone=sessions.find(s=>s.workoutId===w.id&&s.completed);
+return(
+<div key={i} onClick={()=>!isDone&&setActiveW({w,prog})} style={{display:‘flex’,alignItems:‘center’,gap:11,padding:‘12px 15px’,borderBottom:i<ws.length-1?`1px solid ${G.s2}`:‘none’,cursor:isDone?‘default’:‘pointer’,opacity:isDone?.55:1}}>
+<div style={{width:30,height:30,borderRadius:‘50%’,flexShrink:0,background:isDone?G.goldDim:G.s3,border:`2px solid ${isDone?G.gold:G.s4}`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:12}}>{isDone?‘✓’:‘▶’}</div>
+<div style={{flex:1}}><div style={{fontWeight:600,fontSize:13}}>W{w.week}D{w.day} — {w.name}</div><div style={{fontSize:11,color:G.w40,marginTop:2}}>{w.duration} min · {w.exercises?.length||0} exercises</div></div>
+{isDone?<Pill c={G.green}>Done</Pill>:<span style={{color:G.gold,fontSize:11,fontWeight:700}}>Start →</span>}
+</div>
+);
+})}
+</div>
+</div>
+);
+})
 }
+</>}
+{tab===‘library’&&<>
+<div style={{padding:‘12px 20px 8px’}}>
+<input value={exSearch} onChange={e=>setExSearch(e.target.value)} placeholder=“Search exercises, muscles, categories…” style={{width:‘100%’,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:10,padding:‘11px 13px’,fontSize:13,color:G.white}}/>
+</div>
+{!exSearch&&<div style={{padding:‘0 20px 8px’,display:‘flex’,gap:6,overflowX:‘auto’}}>
+{cats.map(c=><button key={c} onClick={()=>setExSearch(c)} style={{flexShrink:0,padding:‘6px 13px’,borderRadius:20,background:G.s2,border:`1px solid ${G.s3}`,fontSize:10,fontWeight:700,color:G.w70,letterSpacing:.5}}>{c}</button>)}
+</div>}
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:7}}>
+{filtered.map(ex=><ExCard key={ex.id} ex={ex} onSelect={setViewEx}/>)}
+</div>
+</>}
+</div>
+);
+};
 
-function CoachApp({ user, onLogout }) {
-  const [tab, setTab] = useState("dashboard");
-  const tabs = [
-    { id: "dashboard", icon: "📊", label: "Home" },
-    { id: "clients", icon: "👥", label: "Clients" },
-    { id: "programmes", icon: "📋", label: "Plans" },
-    { id: "messages", icon: "💬", label: "Messages" },
-  ];
-  const screens = {
-    dashboard: <CoachDashboard user={user} />,
-    clients: <CoachClients user={user} />,
-    programmes: <CoachProgrammes user={user} />,
-    messages: <CoachMessages user={user} />,
-  };
-  return (
-    <AppShell user={user} onLogout={onLogout} tabs={tabs} activeTab={tab} setTab={setTab}>
-      {screens[tab]}
-    </AppShell>
-  );
+/* ── CLIENT NUTRITION ─────────────────────────────────────── */
+const CNutrition=({user})=>{
+const[targets,setTargets]=useState(null);
+const[meals,setMeals]=useState([]);
+const[showAdd,setShowAdd]=useState(false);
+const[f,setF]=useState({name:’’,time:’’,items:’’,calories:’’,protein:’’,carbs:’’,fat:’’});
+const[saving,setSaving]=useState(false);
+useEffect(()=>{api.getNutr(user.id).then(setTargets);const u=api.watchMeals(user.id,setMeals);return u;},[user.id]);
+if(!targets)return<Loader/>;
+const tot=meals.reduce((a,m)=>({calories:a.calories+(m.calories||0),protein:a.protein+(m.protein||0),carbs:a.carbs+(m.carbs||0),fat:a.fat+(m.fat||0)}),{calories:0,protein:0,carbs:0,fat:0});
+const cp=Math.min(100,targets.calories?Math.round(tot.calories/targets.calories*100):0);
+const r=52,ci=2*Math.PI*r;
+const addMeal=async()=>{if(!f.name)return;setSaving(true);try{await api.addMeal({clientId:user.id,date:new Date().toISOString().split(‘T’)[0],…f,calories:+f.calories||0,protein:+f.protein||0,carbs:+f.carbs||0,fat:+f.fat||0});setShowAdd(false);setF({name:’’,time:’’,items:’’,calories:’’,protein:’’,carbs:’’,fat:’’});}catch(e){alert(e.message);}setSaving(false);};
+return(
+<div style={{paddingBottom:20}}>
+<div style={{display:‘flex’,alignItems:‘center’,gap:18,padding:‘18px 20px 4px’}}>
+<div style={{position:‘relative’,width:118,height:118,flexShrink:0}}>
+<svg width={118} height={118} style={{transform:‘rotate(-90deg)’}}>
+<defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stopColor={G.goldD}/><stop offset="100%" stopColor={G.goldL}/></linearGradient></defs>
+<circle cx={59} cy={59} r={r} fill="none" stroke={G.s3} strokeWidth={9}/>
+<circle cx={59} cy={59} r={r} fill="none" stroke="url(#cg)" strokeWidth={9} strokeLinecap="round" strokeDasharray={ci} strokeDashoffset={ci-(cp/100)*ci}/>
+</svg>
+<div style={{position:‘absolute’,inset:0,display:‘flex’,flexDirection:‘column’,alignItems:‘center’,justifyContent:‘center’}}>
+<div style={{fontFamily:”‘Bebas Neue’”,fontSize:22,color:G.gold,lineHeight:1}}>{tot.calories.toLocaleString()}</div>
+<div style={{fontSize:8,color:G.w40,letterSpacing:1.5,fontWeight:700}}>KCAL</div>
+<div style={{fontSize:10,color:G.w70}}>of {targets.calories}</div>
+</div>
+</div>
+<div style={{flex:1}}>
+<MBar label="Protein" current={tot.protein} target={targets.protein} color={G.gold}/>
+<MBar label="Carbs" current={tot.carbs} target={targets.carbs} color="#6b9fff"/>
+<MBar label="Fat" current={tot.fat} target={targets.fat} color="#ff8c42"/>
+</div>
+</div>
+<SH action=”+ Log Meal” onAction={()=>setShowAdd(true)}>Today’s Meals</SH>
+{showAdd&&(
+<div style={{margin:‘0 20px 12px’,background:G.s2,border:`1px solid ${G.goldBorder}`,borderRadius:14,padding:16}}>
+<div style={{fontWeight:700,fontSize:15,marginBottom:12}}>Log Meal</div>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr’,gap:10}}><Inp label=“Name” value={f.name} onChange={v=>setF(p=>({…p,name:v}))} placeholder=“Breakfast” sx={{marginBottom:0}}/><Inp label=“Time” value={f.time} onChange={v=>setF(p=>({…p,time:v}))} placeholder=“08:00” sx={{marginBottom:0}}/></div>
+<Inp label=“Foods” value={f.items} onChange={v=>setF(p=>({…p,items:v}))} placeholder=“Eggs, oats, banana”/>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr 1fr 1fr’,gap:8,marginBottom:12}}>
+{[‘calories’,‘protein’,‘carbs’,‘fat’].map(k=><div key={k}><div style={{fontSize:9,color:G.w40,letterSpacing:1,textTransform:‘uppercase’,fontWeight:600,marginBottom:4}}>{k}</div><input type=“number” value={f[k]} onChange={e=>setF(p=>({…p,[k]:e.target.value}))} placeholder=“0” style={{width:‘100%’,background:G.s3,border:`1.5px solid ${G.s4}`,borderRadius:8,padding:‘9px 6px’,fontSize:12,fontWeight:700,textAlign:‘center’,color:G.white}}/></div>)}
+</div>
+<div style={{display:‘flex’,gap:8}}><Btn onClick={addMeal} disabled={saving} sm sx={{flex:1}}>{saving?’…’:‘Save’}</Btn><Btn variant=“ghost” onClick={()=>setShowAdd(false)} sm sx={{flex:1}}>Cancel</Btn></div>
+</div>
+)}
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:7}}>
+{meals.length===0?<Empty icon="🍽️" title="Nothing logged yet" sub="Tap + Log Meal to track today's nutrition."/>:
+meals.map(m=>(
+<Card key={m.id} sx={{padding:13,display:‘flex’,justifyContent:‘space-between’,alignItems:‘center’}}>
+<div style={{flex:1}}><div style={{fontWeight:700,fontSize:13}}>{m.name}</div>{(m.time||m.items)&&<div style={{fontSize:11,color:G.w40,marginTop:1}}>{m.time}{m.items?` · ${m.items}`:’’}</div>}<div style={{fontSize:10,color:G.w40,marginTop:3}}>P {m.protein}g · C {m.carbs}g · F {m.fat}g</div></div>
+<div style={{display:‘flex’,flexDirection:‘column’,alignItems:‘flex-end’,gap:4}}><div style={{fontFamily:”‘Bebas Neue’”,fontSize:22,color:G.gold,lineHeight:1}}>{m.calories}</div><button onClick={()=>api.delMeal(m.id)} style={{fontSize:10,color:G.red,fontWeight:700}}>Remove</button></div>
+</Card>
+))
 }
+</div>
+</div>
+);
+};
 
-// ═══════════════════════════════════════════════════════════════════════════
-// ROOT
-// ═══════════════════════════════════════════════════════════════════════════
+/* ── CLIENT COACH CHAT ────────────────────────────────────── */
+const CCoach=({user})=>{
+const[msgs,setMsgs]=useState([]);
+const[text,setText]=useState(’’);
+const[coach,setCoach]=useState(null);
+const bottomRef=useRef();
+useEffect(()=>{if(!user.coachId)return;api.getUser(user.coachId).then(setCoach);const u=api.watchMsgs(user.id,user.coachId,ms=>{setMsgs(ms);setTimeout(()=>bottomRef.current?.scrollIntoView({behavior:‘smooth’}),80);});return u;},[user.id,user.coachId]);
+const send=async()=>{if(!text.trim()||!user.coachId)return;await api.sendMsg(user.id,user.coachId,text.trim());setText(’’);};
+if(!user.coachId)return<Empty icon="🔗" title="Not connected to a coach" sub="Ask your coach to link your account."/>;
+return(
+<div style={{display:‘flex’,flexDirection:‘column’,height:‘100%’}}>
+{coach&&<div style={{padding:‘13px 20px’,background:G.s1,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:12,flexShrink:0}}><Av name={coach.name} size={38}/><div><div style={{fontWeight:700,fontSize:14}}>{coach.name}</div><div style={{fontSize:11,color:G.green,display:‘flex’,alignItems:‘center’,gap:5}}><div style={{width:6,height:6,borderRadius:‘50%’,background:G.green}}/>Your coach</div></div></div>}
+<div style={{flex:1,overflowY:‘auto’,padding:‘13px 20px’,display:‘flex’,flexDirection:‘column’,gap:8}}>
+{msgs.length===0&&<div style={{padding:30,textAlign:‘center’,color:G.w40,fontSize:13}}>Send your coach a message — they’ll see it instantly.</div>}
+{msgs.map(m=>{const me=m.from===user.id;return(
+<div key={m.id} style={{display:‘flex’,flexDirection:‘column’,alignItems:me?‘flex-end’:‘flex-start’}}>
+<div style={{maxWidth:‘80%’,padding:‘10px 13px’,borderRadius:14,borderBottomRightRadius:me?3:14,borderBottomLeftRadius:me?14:3,background:me?`linear-gradient(135deg,${G.goldD},${G.gold})`:G.s2,border:me?‘none’:`1px solid ${G.s3}`,color:me?G.bg:G.white,fontWeight:me?600:400,fontSize:13,lineHeight:1.5}}>{m.text}</div>
+</div>
+);})}
+<div ref={bottomRef}/>
+</div>
+<div style={{display:‘flex’,gap:9,padding:‘10px 20px 4px’,borderTop:`1px solid ${G.s3}`,flexShrink:0}}>
+<input value={text} onChange={e=>setText(e.target.value)} onKeyDown={e=>e.key===‘Enter’&&send()} placeholder=“Message your coach…” style={{flex:1,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:22,padding:‘11px 15px’,fontSize:13,color:G.white}}/>
+<button onClick={send} style={{width:40,height:40,borderRadius:‘50%’,background:`linear-gradient(135deg,${G.goldD},${G.gold})`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:15,flexShrink:0}}>➤</button>
+</div>
+</div>
+);
+};
 
-function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async (fbUser) => {
-      if (fbUser) {
-        const profile = await api.getUser(fbUser.uid);
-        setUser(profile);
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-    return unsub;
-  }, []);
-
-  const logout = async () => {
-    if (confirm("Sign out?")) {
-      await api.signOut();
-    }
-  };
-
-  if (loading) return <div className="loader"><div className="spinner"/><div className="loader-text">LEVELUP</div></div>;
-  if (!user) return <AuthScreen />;
-  if (user.role === "coach") return <CoachApp user={user} onLogout={logout} />;
-  return <ClientApp user={user} onLogout={logout} />;
+/* ── CLIENT PROGRESS ──────────────────────────────────────── */
+const CProgress=({user})=>{
+const[meas,setMeas]=useState([]);
+const[sessions,setSessions]=useState([]);
+const[weight,setWeight]=useState(’’);
+const[bf,setBf]=useState(’’);
+const[saving,setSaving]=useState(false);
+const load=()=>Promise.all([api.getMeasurements(user.id),api.getSessions(user.id)]).then(([m,s])=>{setMeas(m);setSessions(s);});
+useEffect(()=>{load();},[user.id]);
+const addM=async()=>{if(!weight)return;setSaving(true);await api.addMeasurement({clientId:user.id,date:new Date().toISOString().split(‘T’)[0],weight:+weight,bodyFat:+bf||null});setWeight(’’);setBf(’’);await load();setSaving(false);};
+const wts=meas.map(m=>m.weight),maxW=wts.length?Math.max(…wts):100,minW=wts.length?Math.min(…wts):60,rng=maxW-minW||1;
+const startW=meas[0]?.weight||0,currW=meas[meas.length-1]?.weight||0;
+const diff=startW?(currW-startW).toFixed(1):‘0’;
+return(
+<div style={{paddingBottom:20}}>
+<SH>Body Weight</SH>
+<div style={{padding:‘0 20px 14px’}}>
+<Card sx={{padding:16}}>
+{meas.length>=2?(
+<>
+<div style={{display:‘flex’,justifyContent:‘space-between’,marginBottom:14}}>
+<div><div style={{fontFamily:”‘Bebas Neue’”,fontSize:26,color:G.gold,lineHeight:1}}>{currW}kg</div><div style={{fontSize:11,color:G.w40}}>Current</div></div>
+<div style={{textAlign:‘right’}}><div style={{fontFamily:”‘Bebas Neue’”,fontSize:26,color:+diff<0?G.green:+diff>0?G.red:G.w40,lineHeight:1}}>{+diff>0?’+’:’’}{diff}kg</div><div style={{fontSize:11,color:G.w40}}>Change</div></div>
+</div>
+<svg width=“100%” viewBox={`0 0 260 80`} style={{overflow:‘visible’}}>
+{meas.map((p,i)=>{
+const x=(i/Math.max(meas.length-1,1))*260,y=70-((p.weight-minW)/rng)*60;
+return(<g key={i}>{i>0&&(()=>{const pp=meas[i-1];const px=((i-1)/Math.max(meas.length-1,1))*260;const py=70-((pp.weight-minW)/rng)*60;return<line x1={px} y1={py} x2={x} y2={y} stroke={G.gold} strokeWidth={2}/>;})()}<circle cx={x} cy={y} r={4} fill={G.gold}/><text x={x} y={y-7} textAnchor="middle" fill={G.goldL} fontSize={9}>{p.weight}</text><text x={x} y={78} textAnchor="middle" fill={G.w40} fontSize={8}>{p.date?.slice(5)}</text></g>);
+})}
+</svg>
+</>
+):<div style={{textAlign:‘center’,padding:‘18px 0’,color:G.w40,fontSize:13}}>Log at least 2 entries to see your chart.</div>}
+</Card>
+</div>
+<SH>Log Measurement</SH>
+<div style={{padding:‘0 20px 16px’}}>
+<Card sx={{padding:16}}>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr’,gap:10,marginBottom:10}}>
+<Inp label="Weight (kg)" type="number" value={weight} onChange={setWeight} placeholder="83.5" sx={{marginBottom:0}}/>
+<Inp label="Body Fat %" type="number" value={bf} onChange={setBf} placeholder="15" sx={{marginBottom:0}}/>
+</div>
+<Btn onClick={addM} disabled={saving} sm sx={{width:‘100%’}}>{saving?‘Saving…’:‘Log Today’}</Btn>
+</Card>
+</div>
+<SH>Session History</SH>
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:7}}>
+{sessions.length===0?<Empty icon="📊" title="No sessions yet" sub="Complete workouts to build your history."/>:
+[…sessions].sort((a,b)=>(b.date||’’).localeCompare(a.date||’’)).slice(0,8).map(s=>(
+<Card key={s.id} sx={{padding:13}}>
+<div style={{display:‘flex’,justifyContent:‘space-between’,alignItems:‘flex-start’,marginBottom:s.logs?6:0}}>
+<div><div style={{fontWeight:700,fontSize:13}}>{s.workoutName||‘Session’}</div><div style={{fontSize:11,color:G.w40,marginTop:2}}>{s.date}</div></div>
+<Pill c={G.green}>✓</Pill>
+</div>
+{s.notes&&<div style={{fontSize:11,color:G.gold,fontStyle:‘italic’,marginBottom:4}}>”{s.notes}”</div>}
+{s.logs&&Object.entries(s.logs).filter(([,v])=>v).map(([k,v])=><div key={k} style={{fontSize:11,color:G.w40}}><span style={{color:G.w70,fontWeight:600}}>{k}:</span> {v}</div>)}
+</Card>
+))
 }
+</div>
+</div>
+);
+};
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+/* ── CLIENT APP ───────────────────────────────────────────── */
+const ClientApp=({user,logout})=>{
+const[tab,setTab]=useState(‘home’);
+const tabs=[{id:‘home’,icon:‘🏠’,label:‘Home’},{id:‘workout’,icon:‘🏋️’,label:‘Workout’},{id:‘nutrition’,icon:‘🥗’,label:‘Nutrition’},{id:‘coach’,icon:‘💬’,label:‘Coach’},{id:‘progress’,icon:‘📊’,label:‘Progress’}];
+const sc={home:<CHome user={user}/>,workout:<CWorkout user={user}/>,nutrition:<CNutrition user={user}/>,coach:<CCoach user={user}/>,progress:<CProgress user={user}/>};
+return<Shell user={user} logout={logout} tabs={tabs} active={tab} setTab={setTab}>{sc[tab]}</Shell>;
+};
 
-} // end if __FIREBASE_READY__
+/* ══════════════════════════════════════════════════════════════════
+COACH APP
+══════════════════════════════════════════════════════════════════ */
+
+/* ── WORKOUT BUILDER ──────────────────────────────────────── */
+const WkBuilder=({workout,onSave,onBack})=>{
+const[w,setW]=useState({…workout,exercises:workout.exercises||[]});
+const[picking,setPicking]=useState(false);
+const[viewEx,setViewEx]=useState(null);
+const[exSearch,setExSearch]=useState(’’);
+const addEx=ex=>{setW(p=>({…p,exercises:[…p.exercises,{name:ex.name,sets:3,reps:‘10’,rest:‘90s’,notes:’’}]}));setPicking(false);};
+const updEx=(i,field,val)=>setW(p=>({…p,exercises:p.exercises.map((e,j)=>j!==i?e:{…e,[field]:val})}));
+const remEx=i=>setW(p=>({…p,exercises:p.exercises.filter((_,j)=>j!==i)}));
+const filtered=EX.filter(e=>!exSearch||e.name.toLowerCase().includes(exSearch.toLowerCase())||e.cat.toLowerCase().includes(exSearch.toLowerCase()));
+if(viewEx)return<ExDetail ex={viewEx} onBack={()=>setViewEx(null)} onAdd={()=>{addEx(viewEx);setViewEx(null);}}/>;
+if(picking)return(
+<div>
+<div style={{padding:‘13px 20px’,background:G.s1,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:12,flexShrink:0}}>
+<button onClick={()=>setPicking(false)} style={{fontSize:22,color:G.w40}}>‹</button>
+<div style={{fontWeight:700,fontSize:16}}>Add Exercise</div>
+</div>
+<div style={{padding:‘12px 20px 8px’}}><input value={exSearch} onChange={e=>setExSearch(e.target.value)} placeholder=“Search exercises…” style={{width:‘100%’,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:10,padding:‘11px 13px’,fontSize:13,color:G.white}}/></div>
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:7,paddingBottom:20}}>
+{filtered.map(ex=>(
+<div key={ex.id} style={{display:‘flex’,gap:6}}>
+<div style={{flex:1}}><ExCard ex={ex} onSelect={()=>addEx(ex)}/></div>
+<button onClick={()=>setViewEx(ex)} style={{width:38,background:G.s2,border:`1px solid ${G.s3}`,borderRadius:10,color:G.w40,fontSize:12}}>ℹ</button>
+</div>
+))}
+</div>
+</div>
+);
+return(
+<div>
+<div style={{padding:‘13px 20px’,background:G.s1,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:12}}>
+<button onClick={onBack} style={{fontSize:22,color:G.w40}}>‹</button>
+<div style={{flex:1,fontWeight:700,fontSize:16}}>{w.id?‘Edit Workout’:‘New Workout’}</div>
+<Btn sm onClick={()=>onSave(w)}>Save</Btn>
+</div>
+<div style={{padding:20,overflowY:‘auto’,paddingBottom:20}}>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr 1fr’,gap:10}}>
+<Inp label=“Week” type=“number” value={w.week||1} onChange={v=>setW(p=>({…p,week:+v}))}/>
+<Inp label=“Day” type=“number” value={w.day||1} onChange={v=>setW(p=>({…p,day:+v}))}/>
+<Inp label=“Duration (min)” type=“number” value={w.duration||45} onChange={v=>setW(p=>({…p,duration:+v}))}/>
+</div>
+<Inp label=“Workout Name” value={w.name||’’} onChange={v=>setW(p=>({…p,name:v}))} placeholder=“Power Strength A”/>
+<div style={{fontSize:10,letterSpacing:1.5,textTransform:‘uppercase’,color:G.w40,margin:‘8px 0’,fontWeight:600}}>Exercises ({w.exercises.length})</div>
+<div style={{display:‘flex’,flexDirection:‘column’,gap:10,marginBottom:12}}>
+{w.exercises.map((ex,i)=>{
+const exData=EX.find(e=>e.name===ex.name)||{emoji:‘💪’};
+return(
+<Card key={i} sx={{padding:13}}>
+<div style={{display:‘flex’,alignItems:‘center’,gap:10,marginBottom:10}}>
+<div style={{width:30,height:30,borderRadius:8,background:G.s3,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:15}}>{exData.emoji}</div>
+<div style={{flex:1,fontWeight:700,fontSize:13,color:G.gold}}>{ex.name}</div>
+<button onClick={()=>remEx(i)} style={{fontSize:11,color:G.red,fontWeight:700}}>Remove</button>
+</div>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr 1fr’,gap:8,marginBottom:8}}>
+<Inp label=“Sets” type=“number” value={ex.sets} onChange={v=>updEx(i,‘sets’,+v)} sx={{marginBottom:0}}/>
+<Inp label=“Reps” value={ex.reps} onChange={v=>updEx(i,‘reps’,v)} placeholder=“10” sx={{marginBottom:0}}/>
+<Inp label=“Rest” value={ex.rest} onChange={v=>updEx(i,‘rest’,v)} placeholder=“90s” sx={{marginBottom:0}}/>
+</div>
+<Inp label=“Coach Notes” value={ex.notes||’’} onChange={v=>updEx(i,‘notes’,v)} placeholder=“Pause 2s at bottom, 3s eccentric…” sx={{marginBottom:0}}/>
+</Card>
+);
+})}
+</div>
+<button onClick={()=>setPicking(true)} style={{width:‘100%’,padding:13,borderRadius:10,border:`1.5px dashed ${G.goldBorder}`,color:G.gold,fontWeight:700,fontSize:12,letterSpacing:1,textTransform:‘uppercase’}}>+ Add Exercise</button>
+</div>
+</div>
+);
+};
+
+/* ── PROGRAMME EDITOR ─────────────────────────────────────── */
+const ProgEditor=({user,programme,onBack})=>{
+const[name,setName]=useState(programme?.name||’’);
+const[emoji,setEmoji]=useState(programme?.emoji||‘🏋️’);
+const[weeks,setWeeks]=useState(programme?.weeks||8);
+const[cat,setCat]=useState(programme?.category||‘Strength’);
+const[desc,setDesc]=useState(programme?.description||’’);
+const[workouts,setWorkouts]=useState(programme?.workouts||[]);
+const[editWk,setEditWk]=useState(null);
+const[saving,setSaving]=useState(false);
+const save=async()=>{if(!name)return alert(‘Enter a name’);setSaving(true);try{const d={name,emoji,weeks:+weeks,category:cat,description:desc,workouts,coachId:user.id};if(programme)await api.updateProg(programme.id,d);else await api.createProg(d);onBack();}catch(e){alert(e.message);}setSaving(false);};
+const saveWk=wk=>{const idx=workouts.findIndex(w=>w.id===wk.id);if(idx>=0){const u=[…workouts];u[idx]=wk;setWorkouts(u);}else setWorkouts(p=>[…p,{…wk,id:`w${Date.now()}`}]);setEditWk(null);};
+if(editWk)return<WkBuilder workout={editWk} onSave={saveWk} onBack={()=>setEditWk(null)}/>;
+return(
+<div>
+<div style={{padding:‘13px 20px’,background:G.s1,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:12}}>
+<button onClick={onBack} style={{fontSize:22,color:G.w40}}>‹</button>
+<div style={{flex:1,fontWeight:700,fontSize:16}}>{programme?‘Edit Programme’:‘New Programme’}</div>
+<Btn sm onClick={save} disabled={saving}>{saving?’…’:‘Save’}</Btn>
+</div>
+<div style={{padding:20,overflowY:‘auto’,paddingBottom:20}}>
+<div style={{display:‘grid’,gridTemplateColumns:‘50px 1fr’,gap:10}}>
+<Inp label="Icon" value={emoji} onChange={setEmoji}/>
+<Inp label="Programme Name" value={name} onChange={setName} placeholder="Power Performance"/>
+</div>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr’,gap:10}}>
+<Inp label="Duration (weeks)" type="number" value={weeks} onChange={setWeeks}/>
+<div style={{marginBottom:12}}>
+<div style={{fontSize:10,letterSpacing:1.5,textTransform:‘uppercase’,color:G.w40,marginBottom:5,fontWeight:600}}>Category</div>
+<div style={{display:‘flex’,flexWrap:‘wrap’,gap:5}}>
+{[‘Strength’,‘Cardio’,‘Sport’,‘Recovery’].map(c=><button key={c} onClick={()=>setCat(c)} style={{padding:‘6px 11px’,borderRadius:8,fontSize:11,fontWeight:700,background:cat===c?G.gold:G.s2,color:cat===c?G.bg:G.w70,border:`1.5px solid ${cat===c?G.gold:G.s3}`}}>{c}</button>)}
+</div>
+</div>
+</div>
+<div style={{marginBottom:14}}>
+<div style={{fontSize:10,letterSpacing:1.5,textTransform:‘uppercase’,color:G.w40,marginBottom:5,fontWeight:600}}>Description</div>
+<textarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder=“Describe this programme…” style={{width:‘100%’,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:10,padding:‘11px 13px’,fontSize:13,color:G.white,minHeight:66,resize:‘none’,fontFamily:‘var(–font)’}}/>
+</div>
+<div style={{fontSize:10,letterSpacing:1.5,textTransform:‘uppercase’,color:G.w40,margin:‘8px 0’,fontWeight:600}}>Workouts ({workouts.length})</div>
+<div style={{display:‘flex’,flexDirection:‘column’,gap:8,marginBottom:12}}>
+{workouts.map((wk,i)=>(
+<Card key={i} onClick={()=>setEditWk(wk)} sx={{padding:13,display:‘flex’,alignItems:‘center’,gap:11}}>
+<div style={{width:34,height:34,borderRadius:8,background:G.s3,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:13,fontWeight:700,color:G.gold}}>W{wk.week}</div>
+<div style={{flex:1}}><div style={{fontWeight:700,fontSize:13}}>Day {wk.day} — {wk.name}</div><div style={{fontSize:11,color:G.w40,marginTop:2}}>{wk.duration} min · {wk.exercises?.length||0} exercises</div></div>
+<span style={{color:G.w40,fontSize:16}}>›</span>
+</Card>
+))}
+</div>
+<button onClick={()=>setEditWk({name:’’,week:workouts.length+1,day:1,duration:45,exercises:[]})} style={{width:‘100%’,padding:13,borderRadius:10,border:`1.5px dashed ${G.goldBorder}`,color:G.gold,fontWeight:700,fontSize:12,letterSpacing:1,textTransform:‘uppercase’}}>+ Add Workout</button>
+</div>
+</div>
+);
+};
+
+/* ── CLIENT DETAIL (coach view) ───────────────────────────── */
+const ClientDetail=({user,client,allProgs,onBack})=>{
+const[tab,setTab]=useState(‘overview’);
+const[sessions,setSessions]=useState([]);
+const[cProgs,setCProgs]=useState([]);
+const[nutr,setNutr]=useState(null);
+const[meals,setMeals]=useState([]);
+const[meas,setMeas]=useState([]);
+const[msgs,setMsgs]=useState([]);
+const[chatText,setChatText]=useState(’’);
+const[showAssign,setShowAssign]=useState(false);
+const[editTgt,setEditTgt]=useState(false);
+const[tf,setTf]=useState({});
+useEffect(()=>{
+const u1=api.watchSessions(client.id,setSessions);
+const u2=api.watchMsgs(user.id,client.id,setMsgs);
+const u3=api.watchMeals(client.id,setMeals);
+api.getClientProgs(client.id).then(setCProgs);
+api.getNutr(client.id).then(t=>{setNutr(t);setTf(t);});
+api.getMeasurements(client.id).then(setMeas);
+return()=>{u1();u2();u3();};
+},[client.id,user.id]);
+const sendMsg=async()=>{if(!chatText.trim())return;await api.sendMsg(user.id,client.id,chatText.trim());setChatText(’’);};
+const assignProg=async pid=>{await api.assignProg(pid,client.id);setCProgs(await api.getClientProgs(client.id));setShowAssign(false);};
+const unassignProg=async pid=>{if(!confirm(‘Remove this programme?’))return;await api.unassignProg(pid,client.id);setCProgs(await api.getClientProgs(client.id));};
+const saveTgts=async()=>{await api.setNutr(client.id,{calories:+tf.calories,protein:+tf.protein,carbs:+tf.carbs,fat:+tf.fat});setNutr(tf);setEditTgt(false);};
+const wts=meas.map(m=>m.weight),maxW=wts.length?Math.max(…wts):100,minW=wts.length?Math.min(…wts):60,rng=maxW-minW||1;
+return(
+<div style={{display:‘flex’,flexDirection:‘column’,height:‘100%’}}>
+<div style={{padding:‘13px 20px’,background:G.s1,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:12,flexShrink:0}}>
+<button onClick={onBack} style={{fontSize:22,color:G.w40}}>‹</button>
+<Av name={client.name} size={36}/>
+<div style={{flex:1}}><div style={{fontWeight:700,fontSize:15}}>{client.name}</div><div style={{fontSize:11,color:G.w40}}>{client.email}</div></div>
+</div>
+<div style={{display:‘flex’,background:G.s2,margin:‘10px 16px’,borderRadius:10,padding:3,gap:2,flexShrink:0,overflowX:‘auto’}}>
+{[‘overview’,‘training’,‘nutrition’,‘progress’,‘chat’].map(t=><button key={t} onClick={()=>setTab(t)} style={{flex:1,minWidth:60,padding:‘8px 4px’,borderRadius:8,fontSize:10,fontWeight:700,letterSpacing:.8,textTransform:‘uppercase’,background:tab===t?G.gold:‘transparent’,color:tab===t?G.bg:G.w40,transition:‘all .2s’}}>{t}</button>)}
+</div>
+<div style={{flex:1,overflowY:‘auto’,padding:‘0 16px 20px’}}>
+{/* OVERVIEW */}
+{tab===‘overview’&&<div style={{display:‘flex’,flexDirection:‘column’,gap:10}}>
+<Card sx={{padding:14}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700,marginBottom:10}}>Stats</div>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr 1fr’,gap:8}}>
+{[{v:sessions.filter(s=>s.completed).length,l:‘Sessions’},{v:cProgs.length,l:‘Programmes’},{v:meas.length,l:‘Measurements’}].map(s=>(
+<div key={s.l} style={{textAlign:‘center’,padding:‘11px 8px’,background:G.s2,borderRadius:10}}>
+<div style={{fontFamily:”‘Bebas Neue’”,fontSize:24,color:G.gold}}>{s.v}</div>
+<div style={{fontSize:9,color:G.w40,letterSpacing:1,textTransform:‘uppercase’,fontWeight:600}}>{s.l}</div>
+</div>
+))}
+</div>
+</Card>
+<Card sx={{padding:14}}>
+<div style={{display:‘flex’,justifyContent:‘space-between’,alignItems:‘center’,marginBottom:10}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700}}>Programmes</div>
+<button onClick={()=>setShowAssign(true)} style={{fontSize:11,color:G.gold,fontWeight:700}}>+ Assign</button>
+</div>
+{cProgs.length===0?<div style={{color:G.w40,fontSize:12}}>No programmes assigned.</div>:
+cProgs.map(p=>(
+<div key={p.id} style={{display:‘flex’,alignItems:‘center’,gap:10,padding:‘8px 0’,borderBottom:`1px solid ${G.s2}`}}>
+<span style={{fontSize:20}}>{p.emoji}</span>
+<div style={{flex:1}}><div style={{fontWeight:700,fontSize:13}}>{p.name}</div><div style={{fontSize:11,color:G.w40}}>{p.weeks}w · {p.category}</div></div>
+<button onClick={()=>unassignProg(p.id)} style={{fontSize:10,color:G.red,fontWeight:700}}>Remove</button>
+</div>
+))}
+</Card>
+{sessions.filter(s=>s.completed).length>0&&<Card sx={{padding:14}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700,marginBottom:10}}>Recent Sessions</div>
+{[…sessions].sort((a,b)=>(b.date||’’).localeCompare(a.date||’’)).slice(0,5).map(s=>(
+<div key={s.id} style={{borderBottom:`1px solid ${G.s2}`,paddingBottom:9,marginBottom:9}}>
+<div style={{display:‘flex’,justifyContent:‘space-between’,marginBottom:2}}><span style={{fontWeight:700,fontSize:12}}>{s.workoutName}</span><Pill c={G.green}>{s.date}</Pill></div>
+{s.notes&&<div style={{fontSize:11,color:G.gold,fontStyle:‘italic’,marginBottom:3}}>”{s.notes}”</div>}
+{s.logs&&Object.entries(s.logs).filter(([,v])=>v).map(([k,v])=><div key={k} style={{fontSize:11,color:G.w40}}><span style={{color:G.w70,fontWeight:600}}>{k}:</span> {v}</div>)}
+</div>
+))}
+</Card>}
+</div>}
+{/* TRAINING */}
+{tab===‘training’&&<div style={{display:‘flex’,flexDirection:‘column’,gap:10}}>
+{cProgs.length===0?<Empty icon="📋" title="No programmes" sub="Use the Overview tab to assign one."/>:
+cProgs.map(prog=>(
+<Card key={prog.id} sx={{overflow:‘hidden’}}>
+<div style={{padding:‘12px 14px’,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:10}}>
+<span style={{fontSize:22}}>{prog.emoji}</span>
+<div><div style={{fontWeight:700,fontSize:14}}>{prog.name}</div><div style={{fontSize:11,color:G.w40}}>{(prog.workouts||[]).length} workouts</div></div>
+</div>
+{(prog.workouts||[]).map((w,i)=>{
+const done=sessions.find(s=>s.workoutId===w.id&&s.completed);
+return(
+<div key={i} style={{display:‘flex’,alignItems:‘center’,gap:10,padding:‘11px 14px’,borderBottom:`1px solid ${G.s2}`,opacity:done?.6:1}}>
+<div style={{width:24,height:24,borderRadius:‘50%’,background:done?G.goldDim:G.s3,border:`2px solid ${done?G.gold:G.s4}`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:10}}>{done?‘✓’:‘○’}</div>
+<div style={{flex:1}}><div style={{fontSize:12,fontWeight:600}}>W{w.week}D{w.day} — {w.name}</div>{done?.notes&&<div style={{fontSize:11,color:G.gold,fontStyle:‘italic’}}>”{done.notes}”</div>}</div>
+{done?<Pill c={G.green}>Done</Pill>:<Pill c={G.w40}>Pending</Pill>}
+</div>
+);
+})}
+</Card>
+))}
+</div>}
+{/* NUTRITION */}
+{tab===‘nutrition’&&nutr&&<div style={{display:‘flex’,flexDirection:‘column’,gap:10}}>
+<Card sx={{padding:14}}>
+<div style={{display:‘flex’,justifyContent:‘space-between’,alignItems:‘center’,marginBottom:10}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700}}>Daily Targets</div>
+<button onClick={()=>setEditTgt(!editTgt)} style={{fontSize:11,color:G.gold,fontWeight:700}}>{editTgt?‘Cancel’:‘Edit’}</button>
+</div>
+{editTgt?(
+<>
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr’,gap:10}}>
+<Inp label=“Calories” type=“number” value={tf.calories||’’} onChange={v=>setTf(p=>({…p,calories:v}))} sx={{marginBottom:0}}/>
+<Inp label=“Protein (g)” type=“number” value={tf.protein||’’} onChange={v=>setTf(p=>({…p,protein:v}))} sx={{marginBottom:0}}/>
+<Inp label=“Carbs (g)” type=“number” value={tf.carbs||’’} onChange={v=>setTf(p=>({…p,carbs:v}))} sx={{marginBottom:0}}/>
+<Inp label=“Fat (g)” type=“number” value={tf.fat||’’} onChange={v=>setTf(p=>({…p,fat:v}))} sx={{marginBottom:0}}/>
+</div>
+<Btn onClick={saveTgts} sm sx={{width:‘100%’,marginTop:10}}>Save Targets</Btn>
+</>
+):(
+<div style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr’,gap:8}}>
+{Object.entries(nutr).map(([k,v])=><div key={k} style={{background:G.s2,borderRadius:10,padding:‘10px 12px’}}><div style={{fontFamily:”‘Bebas Neue’”,fontSize:22,color:G.gold,lineHeight:1}}>{v}</div><div style={{fontSize:9,color:G.w40,textTransform:‘uppercase’,letterSpacing:1,fontWeight:600}}>{k}</div></div>)}
+</div>
+)}
+</Card>
+<Card sx={{padding:14}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700,marginBottom:10}}>Today’s Meals</div>
+{meals.length===0?<div style={{color:G.w40,fontSize:12}}>Client hasn’t logged meals today.</div>:
+meals.map(m=>(
+<div key={m.id} style={{display:‘flex’,justifyContent:‘space-between’,padding:‘8px 0’,borderBottom:`1px solid ${G.s2}`}}>
+<div><div style={{fontWeight:700,fontSize:13}}>{m.name}</div>{m.items&&<div style={{fontSize:11,color:G.w40}}>{m.items}</div>}</div>
+<div style={{textAlign:‘right’}}><div style={{fontFamily:”‘Bebas Neue’”,fontSize:20,color:G.gold}}>{m.calories}</div><div style={{fontSize:10,color:G.w40}}>P:{m.protein} C:{m.carbs} F:{m.fat}</div></div>
+</div>
+))}
+</Card>
+</div>}
+{/* PROGRESS */}
+{tab===‘progress’&&<div style={{display:‘flex’,flexDirection:‘column’,gap:10}}>
+<Card sx={{padding:14}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700,marginBottom:12}}>Weight History</div>
+{meas.length<2?<div style={{color:G.w40,fontSize:12,textAlign:‘center’,padding:‘10px 0’}}>Not enough data yet.</div>:(
+<svg width=“100%” viewBox=“0 0 260 80” style={{overflow:‘visible’}}>
+{meas.map((p,i)=>{const x=(i/Math.max(meas.length-1,1))*260,y=70-((p.weight-minW)/rng)*60;return(<g key={i}>{i>0&&(()=>{const pp=meas[i-1];const px=((i-1)/Math.max(meas.length-1,1))*260;const py=70-((pp.weight-minW)/rng)*60;return<line x1={px} y1={py} x2={x} y2={y} stroke={G.gold} strokeWidth={2}/>;})()}<circle cx={x} cy={y} r={4} fill={G.gold}/><text x={x} y={y-7} textAnchor="middle" fill={G.goldL} fontSize={9}>{p.weight}</text><text x={x} y={78} textAnchor="middle" fill={G.w40} fontSize={8}>{p.date?.slice(5)}</text></g>);})}
+</svg>
+)}
+</Card>
+<Card sx={{padding:14}}>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700,marginBottom:10}}>Measurement Log</div>
+{meas.length===0?<div style={{color:G.w40,fontSize:12}}>No entries yet.</div>:[…meas].reverse().map(e=><div key={e.id} style={{display:‘flex’,justifyContent:‘space-between’,padding:‘7px 0’,borderBottom:`1px solid ${G.s2}`}}><span style={{fontWeight:600,fontSize:12}}>{e.date}</span><span style={{color:G.gold,fontSize:12}}>{e.weight}kg{e.bodyFat?` · ${e.bodyFat}% BF`:’’}</span></div>)}
+</Card>
+</div>}
+{/* CHAT */}
+{tab===‘chat’&&<>
+<div style={{display:‘flex’,flexDirection:‘column’,gap:8,minHeight:200,marginBottom:12}}>
+{msgs.map(m=>{const me=m.from===user.id;return(
+<div key={m.id} style={{display:‘flex’,flexDirection:‘column’,alignItems:me?‘flex-end’:‘flex-start’}}>
+<div style={{maxWidth:‘85%’,padding:‘10px 13px’,borderRadius:14,borderBottomRightRadius:me?3:14,borderBottomLeftRadius:me?14:3,background:me?`linear-gradient(135deg,${G.goldD},${G.gold})`:G.s2,border:me?‘none’:`1px solid ${G.s3}`,color:me?G.bg:G.white,fontWeight:me?600:400,fontSize:13,lineHeight:1.5}}>{m.text}</div>
+</div>
+);})}
+</div>
+<div style={{display:‘flex’,gap:8}}>
+<input value={chatText} onChange={e=>setChatText(e.target.value)} onKeyDown={e=>e.key===‘Enter’&&sendMsg()} placeholder={`Message ${client.name}…`} style={{flex:1,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:22,padding:‘11px 15px’,fontSize:13,color:G.white}}/>
+<button onClick={sendMsg} style={{width:40,height:40,borderRadius:‘50%’,background:`linear-gradient(135deg,${G.goldD},${G.gold})`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:15,flexShrink:0}}>➤</button>
+</div>
+</>}
+</div>
+{/* Assign modal */}
+{showAssign&&(
+<div style={{position:‘fixed’,inset:0,background:‘rgba(0,0,0,.85)’,zIndex:99,display:‘flex’,alignItems:‘flex-end’}}>
+<div style={{width:‘100%’,maxWidth:430,margin:‘0 auto’,background:G.s1,borderRadius:‘18px 18px 0 0’,border:`1px solid ${G.goldBorder}`,padding:24,maxHeight:‘70vh’,overflowY:‘auto’}}>
+<div style={{fontWeight:700,fontSize:17,marginBottom:14}}>Assign Programme</div>
+{allProgs.length===0?<div style={{color:G.w40,textAlign:‘center’,padding:20}}>No programmes yet. Create one in Plans tab.</div>:
+allProgs.map(p=>{const assigned=(p.assignedTo||[]).includes(client.id);return(
+<div key={p.id} onClick={()=>!assigned&&assignProg(p.id)} style={{display:‘flex’,gap:12,alignItems:‘center’,padding:‘12px 0’,borderBottom:`1px solid ${G.s3}`,cursor:assigned?‘default’:‘pointer’,opacity:assigned?.5:1}}>
+<span style={{fontSize:22}}>{p.emoji}</span>
+<div style={{flex:1}}><div style={{fontWeight:700}}>{p.name}</div><div style={{fontSize:12,color:G.w40}}>{p.weeks}w · {p.category}</div></div>
+{assigned&&<Pill>Assigned</Pill>}
+</div>
+);})}
+<button onClick={()=>setShowAssign(false)} style={{width:‘100%’,marginTop:14,padding:13,borderRadius:10,background:G.s3,fontWeight:700,color:G.w70}}>Close</button>
+</div>
+</div>
+)}
+</div>
+);
+};
+
+/* ── COACH SCREENS ────────────────────────────────────────── */
+const CoachHome=({user})=>{
+const[clients,setClients]=useState([]);
+const[progs,setProgs]=useState([]);
+useEffect(()=>{const u1=api.watchClients(user.id,setClients);const u2=api.watchProgs(user.id,setProgs);return()=>{u1();u2();};},[user.id]);
+return(
+<div style={{paddingBottom:20}}>
+<div style={{padding:‘22px 20px 20px’,background:`linear-gradient(160deg,${G.s2},${G.bg})`,position:‘relative’,overflow:‘hidden’}}>
+<div style={{position:‘absolute’,top:-40,right:-30,width:150,height:150,background:‘radial-gradient(circle,rgba(201,168,76,.08),transparent 70%)’,pointerEvents:‘none’}}/>
+<div className=“fu” style={{fontSize:11,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:600}}>Welcome,</div>
+<div className=“fu d1” style={{fontFamily:”‘Bebas Neue’”,fontSize:34,letterSpacing:2,lineHeight:1.1}}>{user.name.split(’ ‘)[0].toUpperCase()}</div>
+<div className="fu d2" style={{fontSize:12,color:G.w70,marginTop:4}}>LEVELUP Coach Dashboard</div>
+</div>
+<div className=“fu d2” style={{display:‘grid’,gridTemplateColumns:‘1fr 1fr’,gap:10,padding:‘13px 20px’}}>
+{[{v:clients.length,l:‘Active Clients’},{v:progs.length,l:‘Programmes’}].map(s=>(
+<Card key={s.l} sx={{padding:‘15px 13px’}}>
+<div style={{fontFamily:”‘Bebas Neue’”,fontSize:38,color:G.gold,lineHeight:1}}>{s.v}</div>
+<div style={{fontSize:10,color:G.w40,letterSpacing:1.5,textTransform:‘uppercase’,fontWeight:700,marginTop:2}}>{s.l}</div>
+</Card>
+))}
+</div>
+<SH>Share LEVELUP</SH>
+<div style={{padding:‘0 20px’}}>
+<Card sx={{padding:15}}>
+<div style={{fontSize:13,color:G.w70,lineHeight:1.6,marginBottom:10}}>Share this link — clients sign up and automatically connect to you.</div>
+<div style={{background:G.s2,padding:‘10px 12px’,borderRadius:8,fontSize:11,color:G.gold,fontFamily:‘monospace’,wordBreak:‘break-all’,marginBottom:10}}>{window.location.href.split(’#’)[0].split(’?’)[0]}</div>
+<Pill c={G.green} sx={{fontSize:10}}>Free for all clients</Pill>
+</Card>
+</div>
+</div>
+);
+};
+const CoachClients=({user})=>{
+const[clients,setClients]=useState([]);
+const[progs,setProgs]=useState([]);
+const[sel,setSel]=useState(null);
+useEffect(()=>{const u1=api.watchClients(user.id,setClients);const u2=api.watchProgs(user.id,setProgs);return()=>{u1();u2();};},[user.id]);
+if(sel)return<ClientDetail user={user} client={sel} allProgs={progs} onBack={()=>setSel(null)}/>;
+return(
+<div style={{paddingBottom:20}}>
+<SH>All Clients</SH>
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:8}}>
+{clients.length===0?<Empty icon="👥" title="No clients yet" sub="Clients appear here when they sign up with your link."/>:
+clients.map(c=>(
+<Card key={c.id} onClick={()=>setSel(c)} sx={{padding:14,display:‘flex’,gap:12,alignItems:‘center’}}>
+<Av name={c.name} size={44}/>
+<div style={{flex:1}}><div style={{fontWeight:700,fontSize:14}}>{c.name}</div><div style={{fontSize:11,color:G.w40,marginTop:2}}>{c.email}</div></div>
+<span style={{color:G.w40,fontSize:16}}>›</span>
+</Card>
+))}
+</div>
+</div>
+);
+};
+const CoachPlans=({user})=>{
+const[progs,setProgs]=useState([]);
+const[editing,setEditing]=useState(null);
+const[creating,setCreating]=useState(false);
+useEffect(()=>{const u=api.watchProgs(user.id,setProgs);return u;},[user.id]);
+if(editing)return<ProgEditor user={user} programme={editing} onBack={()=>setEditing(null)}/>;
+if(creating)return<ProgEditor user={user} programme={null} onBack={()=>setCreating(false)}/>;
+return(
+<div style={{paddingBottom:20}}>
+<SH action=”+ Create” onAction={()=>setCreating(true)}>Programmes</SH>
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:10}}>
+{progs.length===0?<Empty icon="📋" title="No programmes yet" sub="Create your first training programme."/>:
+progs.map(p=>(
+<Card key={p.id} onClick={()=>setEditing(p)} sx={{padding:15,display:‘flex’,gap:12,alignItems:‘flex-start’}}>
+<div style={{width:46,height:46,borderRadius:12,background:G.s3,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:22,flexShrink:0}}>{p.emoji||‘🏋️’}</div>
+<div style={{flex:1}}>
+<div style={{fontWeight:700,fontSize:14,marginBottom:3}}>{p.name}</div>
+<div style={{fontSize:12,color:G.w40,marginBottom:5}}>{p.weeks}w · {p.category} · {(p.workouts||[]).length} workouts</div>
+{p.description&&<div style={{fontSize:12,color:G.w70,lineHeight:1.5}}>{p.description}</div>}
+<div style={{marginTop:7}}><Pill sx={{fontSize:9}}>{(p.assignedTo||[]).length} clients</Pill></div>
+</div>
+<span style={{color:G.w40,fontSize:16}}>›</span>
+</Card>
+))}
+</div>
+</div>
+);
+};
+const CoachMessages=({user})=>{
+const[clients,setClients]=useState([]);
+const[sel,setSel]=useState(null);
+const[msgs,setMsgs]=useState([]);
+const[text,setText]=useState(’’);
+useEffect(()=>{const u=api.watchClients(user.id,setClients);return u;},[user.id]);
+useEffect(()=>{if(!sel)return;const u=api.watchMsgs(user.id,sel.id,setMsgs);return u;},[sel,user.id]);
+const send=async()=>{if(!text.trim()||!sel)return;await api.sendMsg(user.id,sel.id,text.trim());setText(’’);};
+if(sel)return(
+<div style={{display:‘flex’,flexDirection:‘column’,height:‘100%’}}>
+<div style={{padding:‘13px 20px’,background:G.s1,borderBottom:`1px solid ${G.s3}`,display:‘flex’,alignItems:‘center’,gap:12,flexShrink:0}}>
+<button onClick={()=>setSel(null)} style={{fontSize:22,color:G.w40}}>‹</button>
+<Av name={sel.name} size={34}/><div style={{fontWeight:700,fontSize:14}}>{sel.name}</div>
+</div>
+<div style={{flex:1,overflowY:‘auto’,padding:‘13px 20px’,display:‘flex’,flexDirection:‘column’,gap:8}}>
+{msgs.map(m=>{const me=m.from===user.id;return(
+<div key={m.id} style={{display:‘flex’,flexDirection:‘column’,alignItems:me?‘flex-end’:‘flex-start’}}>
+<div style={{maxWidth:‘82%’,padding:‘10px 13px’,borderRadius:14,borderBottomRightRadius:me?3:14,borderBottomLeftRadius:me?14:3,background:me?`linear-gradient(135deg,${G.goldD},${G.gold})`:G.s2,border:me?‘none’:`1px solid ${G.s3}`,color:me?G.bg:G.white,fontWeight:me?600:400,fontSize:13,lineHeight:1.5}}>{m.text}</div>
+</div>
+);})}
+</div>
+<div style={{display:‘flex’,gap:9,padding:‘10px 20px’,borderTop:`1px solid ${G.s3}`,flexShrink:0}}>
+<input value={text} onChange={e=>setText(e.target.value)} onKeyDown={e=>e.key===‘Enter’&&send()} placeholder={`Message ${sel.name}…`} style={{flex:1,background:G.s2,border:`1.5px solid ${G.s3}`,borderRadius:22,padding:‘11px 15px’,fontSize:13,color:G.white}}/>
+<button onClick={send} style={{width:40,height:40,borderRadius:‘50%’,background:`linear-gradient(135deg,${G.goldD},${G.gold})`,display:‘flex’,alignItems:‘center’,justifyContent:‘center’,fontSize:15,flexShrink:0}}>➤</button>
+</div>
+</div>
+);
+return(
+<div style={{paddingBottom:20}}>
+<SH>Messages</SH>
+<div style={{padding:‘0 20px’,display:‘flex’,flexDirection:‘column’,gap:8}}>
+{clients.length===0?<Empty icon="💬" title="No clients yet" sub="Clients will appear here when they sign up."/>:
+clients.map(c=>(
+<Card key={c.id} onClick={()=>setSel(c)} sx={{padding:14,display:‘flex’,gap:12,alignItems:‘center’}}>
+<Av name={c.name} size={42}/><div style={{flex:1}}><div style={{fontWeight:700,fontSize:14}}>{c.name}</div><div style={{fontSize:12,color:G.w40,marginTop:2}}>{c.email}</div></div>
+<span style={{color:G.w40,fontSize:16}}>›</span>
+</Card>
+))}
+</div>
+</div>
+);
+};
+const CoachApp=({user,logout})=>{
+const[tab,setTab]=useState(‘home’);
+const tabs=[{id:‘home’,icon:‘📊’,label:‘Home’},{id:‘clients’,icon:‘👥’,label:‘Clients’},{id:‘plans’,icon:‘📋’,label:‘Plans’},{id:‘messages’,icon:‘💬’,label:‘Messages’}];
+const sc={home:<CoachHome user={user}/>,clients:<CoachClients user={user}/>,plans:<CoachPlans user={user}/>,messages:<CoachMessages user={user}/>};
+return<Shell user={user} logout={logout} tabs={tabs} active={tab} setTab={setTab}>{sc[tab]}</Shell>;
+};
+
+/* ── ROOT ─────────────────────────────────────────────────── */
+const App=()=>{
+const[user,setUser]=useState(null);
+const[loading,setLoading]=useState(true);
+useEffect(()=>{
+if(!window.**FB**){setLoading(false);return;}
+const u=api.watchAuth(async fb=>{
+if(fb){const p=await api.getUser(fb.uid);setUser(p);}
+else setUser(null);
+setLoading(false);
+});
+return u;
+},[]);
+const logout=async()=>{if(confirm(‘Sign out?’))await api.signOut();};
+if(!window.**FB**)return<Setup/>;
+if(loading)return<div style={{position:‘fixed’,inset:0,background:’#0f0f0f’,display:‘flex’,flexDirection:‘column’,alignItems:‘center’,justifyContent:‘center’,gap:14}}><div className="spin"/><div style={{fontFamily:”‘Bebas Neue’”,fontSize:32,letterSpacing:6,background:‘linear-gradient(135deg,#8B6914,#E8C97A)’,WebkitBackgroundClip:‘text’,WebkitTextFillColor:‘transparent’}}>LEVELUP</div></div>;
+if(!user)return<Auth/>;
+if(user.role===‘coach’)return<CoachApp user={user} logout={logout}/>;
+return<ClientApp user={user} logout={logout}/>;
+};
+ReactDOM.createRoot(document.getElementById(‘root’)).render(<App/>);
 </script>
 
 </body>
